@@ -191,7 +191,7 @@
 			<!-- end of queryScreen -->
 			<section class='col-sm-12' ng-hide="listOfDocuments">
 				<h4> * Please rate each of the following recommendations shown for this query. These are presented in a random order. </h4>
-				<!--				<h4>A set of recommendations are shown in random order for the query</h4>-->
+
 				<h2 style="color:#000000 ! important;">Query : {{searchTerm}}</h2>
 
 				<article class='video' ng-cloak ng-repeat="chapter in allDocuments | orderBy: 'docID' | filter: myFilterByFunction">
