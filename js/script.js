@@ -432,14 +432,14 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 					//					console.log("3rd loadMore below *** Refined_Query");
 
 					//1. ordinary loadMore for BOW method
-					//					$scope.loadMore($scope.searchTerm, $scope.page);
-					//					console.log("Method: BOW");
+										$scope.loadMore($scope.searchTerm, $scope.page);
+										console.log("Method: BOW");
 
 					//2. using the top k terms from pseudo-documents to expand
 					//					$scope.loadMore((response.data.newQuery), $scope.page);
 
 					//	3. CB1: top 25 terms from pseudo - documents + original query
-					$scope.loadMore((response.data.newQuery + " " + $scope.searchTerm), $scope.page);
+					// $scope.loadMore((response.data.newQuery + " " + $scope.searchTerm), $scope.page);
 					//					console.log("CB1: DB1 : top 25 terms + original query: Top 3 Concepts");
 
 					//3b. CB1b: top 25 terms from pseudo-documents + initial query + initial query
