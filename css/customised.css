@@ -1,0 +1,244 @@
+/* Customised styles */
+
+.jumbotron {
+	margin-bottom: 5px;
+	padding: 0.01em 0.4em;
+	padding-left: 55px;
+	padding-right: 55px;
+	h1 {
+		font-size: 2em;
+	}
+	p {
+		font-size: 1.0em;
+		.btn {
+			padding: 0.0em;
+		}
+	}
+}
+
+div.navbar.navbar-default.navbar-fixed-top.navbar-inverse {
+	padding-top: 5px !important;
+	padding-bottom: 0 !important;
+	height: 25px;
+}
+
+div.collpase.navbar-collapse {
+	padding-top: 0px !important;
+	padding-bottom: 0 !important;
+	height: 15px;
+}
+
+ul.nav.navbar-nav {
+	padding-top: 0px !important;
+	padding-bottom: 0 !important;
+	height: 15px;
+}
+
+header {
+	margin-bottom: 30px;
+}
+
+section.searchField {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+div.col-sm-7 {
+	padding-left: 0px;
+	padding-right: 5px;
+}
+
+div.col-sm-4 col-sm-offset-1 blog-sidebar {
+	border-color: blue;
+	padding-top: 0px;
+}
+
+div.panel panel-default panel-danger {
+	border-color: blue;
+	border-top-width: 1px;
+	margin-bottom: 5px;
+	border-right-width: 1px;
+}
+
+.cf > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+img.thumb {
+	display: inline-block;
+	vertical-align: middle;
+	width: 100px;
+}
+
+div.desc {
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 100px);
+}
+
+h2 {
+	font-family: "Arial";
+	color: green;
+	font-size: 21px;
+}
+
+h2.recommendations {
+	color: blue;
+}
+
+#myiframe {
+	display: none;
+}
+
+.modal.in .modal-dialog {
+	transform: none;
+	/*translate(0px, 0px);*/
+}
+
+p {
+	margin: 0em;
+}
+
+a.videoTitles {
+	padding: 0px;
+	border: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+
+/********************** Custom CSS for tag-cloud ***************/
+
+
+/* fonts */
+
+div.custom-1 {
+	font-family: "Helvetica", "Arial", sans-serif;
+	font-size: 10px;
+	line-height: normal;
+}
+
+div.custom-1 a {
+	font-size: inherit;
+	text-decoration: none;
+}
+
+div.custom-1 span.w10 {
+	font-size: 550%;
+}
+
+div.custom-1 span.w9 {
+	font-size: 500%;
+}
+
+div.custom-1 span.w8 {
+	font-size: 450%;
+}
+
+div.custom-1 span.w7 {
+	font-size: 400%;
+}
+
+div.custom-1 span.w6 {
+	font-size: 350%;
+}
+
+div.custom-1 span.w5 {
+	font-size: 300%;
+}
+
+div.custom-1 span.w4 {
+	font-size: 250%;
+}
+
+div.custom-1 span.w3 {
+	font-size: 200%;
+}
+
+div.custom-1 span.w2 {
+	font-size: 150%;
+}
+
+div.custom-1 span.w1 {
+	font-size: 100%;
+}
+
+
+/* colors */
+
+div.custom-1 {
+	color: #09f;
+}
+
+div.custom-1 a {
+	color: inherit;
+}
+
+div.custom-1 a:hover {
+	color: #0df;
+}
+
+div.custom-1 a:hover {
+	color: #0cf;
+}
+
+div.custom-1 span.w10 {
+	color: grey;
+}
+
+div.custom-1 span.w9 {
+	color: #0cf;
+}
+
+div.custom-1 span.w8 {
+	color: #0cf;
+}
+
+div.custom-1 span.w7 {
+	color: #39d;
+}
+
+div.custom-1 span.w6 {
+	color: #90c5f0;
+}
+
+div.custom-1 span.w5 {
+	color: #90a0dd;
+}
+
+div.custom-1 span.w4 {
+	color: purple;
+}
+
+div.custom-1 span.w3 {
+	color: green;
+}
+
+div.custom-1 span.w2 {
+	color: blue;
+}
+
+div.custom-1 span.w1 {
+	color: red;
+}
+
+
+/* layout */
+
+div.ng-tag-cloud {
+	overflow: hidden;
+	position: relative;
+}
+
+div.ng-tag-cloud span {
+	padding: 0;
+	cursor: pointer;
+}

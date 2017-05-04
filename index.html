@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8'>
+	<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>
+		Machine Learning Recommender
+	</title>
+	<link href="css/screen.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="css/stars.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/ng-tag-cloud.css">
+	<!-- tag-cloud default css -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/customised.css" type="text/css" />
+	<style>
+		.error {
+			color: #FF0000;
+		}
+	</style>
+	<!--link to external JavaScript that validates form input.-->
+</head>
+
+<body class='index'>
+	<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a style="color:#FFFFFF ! important;" href="" class="navbar-brand">A Recommender System for Machine Learning & Data Mining Concepts</a>
+			</div>
+			<div class="collpase navbar-collapse" id="example">
+
+			</div>
+		</div>
+	</div>
+
+	<div class='container'>
+		<div ng-app='machineLearningRecommender' ng-controller='videoCtrl'>
+			<div ng-show="briefingNotes">
+				<section>
+					<br>
+					<h3 style="float: center;"> <b>User Evaluation : Participant Briefing Notes</b> </h3>
+					<br>
+					<b>Aim of Study</b>
+					<p>
+						This study evaluates the quality of recommendations. You will be shown one query each time to evaluate. There are no 'right' or 'wrong' answers; instead we would like to know how relevant you consider a recommended document to be on a rating scale of 1 to 5 stars based on the query shown. Where 1 star is least likely to be relevant and 5 stars is very relevant.
+					</p>
+					<br>
+					<p>
+						For each query, choose one of two options: <b>Evaluate</b> (if you would like to evaluate the recommendations made for that query, because you have some understanding of the query), or <b>Skip</b> (if you have no idea about the query).
+					</p>
+					<br>
+					<b>Evaluation Task</b>
+					<p>
+						When evaluating a query, you will be shown a set of up 6 documents in <b>random</b> order. Please go through each one and rate it from 1 – 5 based on how relevant you think the document is to the query shown. Please look through each document for a few minutes, as this will help you make a better judgement. After rating all the documents shown for a query, click evaluate next query.
+						<br> You may evaluate up to 5 queries or more if you can. However, you are free to stop at any point, participation is voluntary. The experiment should take about 30 minutes to complete. Thank you in advance for sharing your time to help me with this project.
+					</p>
+					<br>
+					<b>Confidentiality</b>
+					<p>
+						The data you provide is anonymised, as I will not collect your name or student/staff number. You will be assigned a system generated ID to keep track of your inputs, but this will not be linked to your name or student/staff number. The data collected during the study may be looked at by individuals from the research team. As you go through the task, please do not hesitate to ask any questions.
+					</p>
+					<br>
+
+					<p>
+						<b>Contact Information: </b>
+						<br> Blessing Mbipom. Email: b.e.mbipom@rgu.ac.uk
+						<br> School of Computing Science and Digital Media
+						<br> Robert Gordon University, Aberdeen
+						<br>
+					</p>
+					<br>
+
+					<button type="submit" class="btn btn-default" ng-click="continueToQuestionnaire()" style="float: right;"><b>Continue</b></button>
+					<br>
+				</section>
+			</div>
+			<!--	End of participant briefing notes-->
+
+			<!--			start of Questionnaire-->
+			<div ng-hide="questionnaire">
+				<br>
+				<div>
+					<br>
+					<br>
+					<!--					<form name='survey' action="php/insertSurvey.php" method="POST">-->
+					<form method="post" name='survey'>
+						<h3 style="float: center;"><b>Questionnaire</b></h3>
+						<br>
+						<p>Dear User, could you tick as appropriate in the Consent section and also provide some data about your background in Machine Learning/Data Mining domain. Thank you.
+						</p>
+						<p><span class="error">* required field.</span></p>
+						<br>
+						<fieldset>
+							<legend>
+								<h4><b>Consent</b></h4>
+							</legend>
+							<p>
+								<label for="consent">I agree to take part in this study </label>
+								<input id="consent" type="checkbox" ng-model="user.consent" name="consent" ng-value="yes" required/>
+								<span class="error">* <?php echo $consentErr;?></span>
+								<span ng-show="survey.consent.$untouched && survey.consent.$pristine">Consent is required</span>
+							</p>
+						</fieldset>
+						<fieldset>
+							<legend>
+								<br> {{ user }}
+								<h4><b>Background</b></h4></legend>
+							<!--//Q1.-->
+							<ol>
+								<li>
+									<label for="role">What is your current role?</label>
+									<span class="error">* <?php echo $roleErr;?></span>
+									<span ng-show="survey.role.$pristine">Role is required</span>
+									<br>
+									<select name="role" id="role" ng-options="item for item in question.role" ng-model="user.role"></select>
+								</li>
+
+								<!-- //Q2.-->
+								<li>
+									<label>What is your highest qualification?</label>
+									<span class="error">* <?php echo $qualificationErr;?></span>
+									<span ng-show="survey.qualification.$untouched">Qualification is required</span>
+									<br>
+									<select name="qualification" id="qualification" ng-options="item for item in question.qualification" ng-model="user.qualification"></select>
+								</li>
+
+								<li>
+									<label>How much experience do you have in machine Learning / Data Mining ?</label>
+									<span class="error">* <?php echo $experienceErr;?></span>
+									<span ng-show="survey.experience.$untouched">Experience is required</span>
+									<div ng-repeat="option in question.experience track by $index">
+										<input type="radio" name="experience" ng-value="option" ng-model="user.experience" />
+										<label>{{ option }}</label>
+									</div>
+								</li>
+
+								<!-- //Q4.-->
+								<li>
+									<label>How would you classify your expertise in machine Learning / Data Mining ?</label>
+									<span class="error">* <?php echo $expertiseErr;?></span>
+									<span ng-show="survey.expertise.$pristine">Expertise is required</span>
+									<div ng-repeat="option in question.expertise track by $index">
+										<input type="radio" name="expertise" ng-value="option" ng-model="user.expertise" />
+										<label>{{ option }}</label>
+									</div>
+								</li>
+
+							</ol>
+							<button type="submit" class="btn btn-default" ng-click="continueToEval(consent, user.role, qualification, experience, expertise)" style="float: right;" ng-disabled="!survey.$valid"><b>Continue to Evaluation</b></button>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<!--			End of Questionnaire-->
+			<div class="jumbotron" ng-hide="queryScreen">
+				<header>
+					<img src="images/eTutorLogo.JPG" height="50%" width="50%">
+				</header>
+				<!-- include a show/hide option depending on which button is clicked -->
+				<section class='searchField'>
+					<form class="form-inline" role="form">
+						<div class="form-group">
+							<h3> Query: <input ng-model='randomQuery' style ="color:#000000; font-size:21px" type='text' class="form-control" size="80" readonly="readonly"></h3>
+						</div>
+						<br>
+						<div class="button-group" ng-show="buttonChoice">
+							<button type="submit" class="btn btn-default" ng-click="skipQuery()">Skip</button>
+							&nbsp; &nbsp; &nbsp;
+							<button type="submit" class="btn btn-default" ng-click="evaluateQuery()">Evaluate</button>
+						</div>
+					</form>
+				</section>
+			</div>
+
+			<!-- end of queryScreen -->
+			<section class='col-sm-12' ng-hide="listOfDocuments">
+				<h4> * Please rate each of the following recommendations shown for this query. These are presented in a random order. </h4>
+				<!--				<h4>A set of recommendations are shown in random order for the query</h4>-->
+				<h2 style="color:#000000 ! important;">Query : {{searchTerm}}</h2>
+
+				<article class='video' ng-cloak ng-repeat="chapter in allDocuments | orderBy: 'docID' | filter: myFilterByFunction">
+					<div id="output_div">
+						<ul>
+							<li class="group">
+								<h2>
+							{{chapter.docID}} 
+							<a class='videoTitles' style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter)">{{chapter.title}} </a> 
+        					</h2>
+								<h4>Document Rated : {{}}</h4>
+								<p>{{chapter.shortSummary}}</p>
+							</li>
+						</ul>
+					</div>
+				</article>
+				<br>
+				<br>
+				<div class="button-group">
+					<button type="submit" class="btn btn-default" ng-click="endEvaluation()"><b>End Evaluation</b></button>
+					&nbsp; &nbsp;
+					<button type="submit" class="btn btn-default" ng-click="evaluateNextQuery()"><b>Evaluate Next Query</b></button>
+				</div>
+			</section>
+			<!-- end of listOfDocuments -->
+
+			<!--			beginning of completion screen-->
+			<div class="jumbotron" ng-show="completionScreen">
+				<header>
+					<img src="images/eTutorLogo.JPG" height="50%" width="50%">
+				</header>
+				<!-- include a show/hide option depending on which button is clicked -->
+				<section>
+					<br>
+					<br>
+					<p><b><i>Thank you for taking part in this evaluation!</i></b></p>
+				</section>
+			</div>
+
+		</div>
+		<!-- end of ng-app 'machineLearningRecommender' ng-controller='videoCtrl'>  -->
+	</div>
+	<!-- end of <div class='container'>  -->
+
+	<script src="bower_components/underscore/underscore-min.js"></script>
+	<script src="bower_components/angular/angular.js" type="text/javascript"></script>
+	<script src="bower_components/angular-filter/dist/angular-filter.js" type="text/javascript"></script>
+	<script src="bower_components/angular-rating/src/angular-rating.js" type="text/javascript"></script>
+	<script src="js/ui-bootstrap-tpls-2.2.0.min.js"></script>
+	<script src="bower_components/elasticsearch/elasticsearch.angular.js" type="text/javascript"></script>
+	<!-- Scripts -->
+
+	<!--	<script src="bower_components/angular-tag-cloud/src/ng-tag-cloud.js"></script>-->
+	<script src="js/ng-tag-cloud.js"></script>
+	<!-- Import tag-cloud module first -->
+	<script type="text/javascript" src="js/validate.js"></script>
+	<script type="text/javascript" src="js/script.js?r=111"></script>
+	<script src="js/ie10-viewport-bug-workaround.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+	<!--AngularUI Bootstrap-->
+	<script src="js/ui-bootstrap-tpls-1.1.1.min.js"></script>
+</body>
+
+</html>
