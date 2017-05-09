@@ -216,9 +216,9 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	$scope.question = {
 		consent: ['yes'],
 		qualification: ['No Degree', 'BSc', 'MSc', 'PhD'],
-		role: ['MSc Student', 'PhD Student', 'Post Doctorate', 'Researcher', 'Lecturer'],
+		role: ['BSc Student', 'MSc Student', 'PhD Student', 'Researcher', 'Academic Staff'],
 		experience: ['Less than one year', 'One to two years', 'Three To five years', 'Over five years', 'Over ten years'],
-		expertise: ['beginner', 'competent', 'expert']
+		expertise: ['Beginner', 'Competent', 'Expert']
 			//selectedOption: ['Select your role'] //This sets the default value of the select in the ui
 	};
 
@@ -432,8 +432,8 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 					//					console.log("3rd loadMore below *** Refined_Query");
 
 					//1. ordinary loadMore for BOW method
-										$scope.loadMore($scope.searchTerm, $scope.page);
-										console.log("Method: BOW");
+					$scope.loadMore($scope.searchTerm, $scope.page);
+					console.log("Method: BOW");
 
 					//2. using the top k terms from pseudo-documents to expand
 					//					$scope.loadMore((response.data.newQuery), $scope.page);
