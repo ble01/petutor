@@ -1,8 +1,10 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+include("dbConnect.php"); //Establishing connection with our database
 
-$con = mysqli_connect("localhost","root","","tutor"); //server,username,password,DB_name
+//header("Access-Control-Allow-Origin: *");
+//header("Content-Type: application/json; charset=UTF-8");
+
+//$con = mysqli_connect("localhost","root","","tutor"); //server,username,password,DB_name
 
 $sql = $con->query("SELECT query_id, query_desc FROM query");
 
