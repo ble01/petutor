@@ -1,5 +1,6 @@
 <?php
- 
+include("dbConnect.php"); //Establishing connection with our database
+
 // define variables and set to empty values
 $consentErr = $roleErr = $qualificationErr = $experienceErr = $expertiseErr = "";
 $consent = $role = $qualification = $experience = $expertise = "";
@@ -13,7 +14,7 @@ $expertise = $_POST['expertise'];
 
 echo $user_id. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
 
-$con = mysqli_connect("localhost","root","","tutor"); 
+//$con = mysqli_connect("localhost","root","","tutor"); 
 // //if(empty($_POST['consent'])) //{ //$consentErr = "Consent not given"; //$error=true; //} //else //{ //$consent = $_POST['consent']; //}
 
 //if(isset($_POST['submit'])){
