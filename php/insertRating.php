@@ -1,4 +1,5 @@
 <?php
+include("dbConnect.php"); //Establishing connection with our database
 
 $user_id = $_POST['user_id'];
 $query_id = $_POST['query_id'];
@@ -9,7 +10,7 @@ $ip = "";
 
 echo $user_id. " " .$query_id. " " .$docID. " " .$rating;
 
-$con = mysqli_connect("localhost","root","","tutor");  //server,username,password,DB_name
+//$con = mysqli_connect("localhost","root","","tutor");  //server,username,password,DB_name
 $ip = $_SERVER["REMOTE_ADDR"];
 echo $ip;
 //consider writing the ip address to a new column in the DB, make a column of size 45
