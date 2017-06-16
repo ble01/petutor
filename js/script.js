@@ -285,7 +285,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 				// initial search at startup
 				//$scope.loadMore($scope.searchTerm, $scope.page);
 				//				console.log("First load more");
-				$scope.searchConcept();
+				//				$scope.searchConcept();
 				//				console.log(response);
 			});
 	};
@@ -1163,25 +1163,6 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 
 }]);
 
-
-//MachineLearningRecommender.directive('myYoutube', function ($sce) {
-//	return {
-//		restrict: 'EA',
-//		scope: {
-//			code: '='
-//		},
-//		replace: true,
-//		template: '<div style="height:400px;"><iframe style="overflow:hidden;height:100%;width:100%" width="100%" height="100%" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
-//		link: function (scope) {
-//			//			console.log('Just a test!!!!!');
-//			scope.$watch('code', function (newVal) {
-//				if (newVal) {
-//					scope.url = $sce.trustAsResourceUrl("http://www.youtube.com/embed/" + newVal);
-//				}
-//			});
-//		}
-//	};
-//});
 
 angular.module('myAppWithSceDisabledmyApp', []).config(function ($sceProvider) {
 	// Completely disable SCE.  For demonstration purposes only!
