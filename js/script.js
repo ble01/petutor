@@ -403,7 +403,8 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
 	$scope.evaluateQuery = function () {
 		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
-		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB		
+		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB	
+		console.log("In $scope.evaluateQuery method after DB" + $scope.query_id);
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
 	};
