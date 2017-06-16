@@ -143,7 +143,7 @@
 								<li>
 									<label>How much experience do you have in Machine Learning / Data Mining?</label>
 									<span class="error">* <?php echo $experienceErr;?></span>
-									<span ng-show="survey.experience.$untouched && survey.experience.$pristine">Experience is required</span>
+									<span ng-show="survey.experience.$pristine">Experience is required</span>
 									<div ng-repeat="option in question.experience track by $index">
 										<input type="radio" name="experience" ng-value="option" ng-model="user.experience" required/>
 										<label>{{ option }}</label>
@@ -154,7 +154,7 @@
 								<li>
 									<label>How would you classify your expertise in Machine Learning / Data Mining?</label>
 									<span class="error">* <?php echo $expertiseErr;?></span>
-									<span ng-show="survey.expertise.$untouched && survey.expertise.$pristine">Expertise is required</span>
+									<span ng-show="survey.expertise.$pristine">Expertise is required</span>
 									<div ng-repeat="option in question.expertise track by $index">
 										<input type="radio" name="expertise" ng-value="option" ng-model="user.expertise" required/>
 										<label>{{ option }}</label>
@@ -192,21 +192,21 @@
 				<h4> * Please rate each of the following recommendations shown for this query. These are presented in a random order. </h4>
 
 				<h2 style="color:#000000 ! important;">Query : {{searchTerm}}</h2>
-
 				<article class='video' ng-cloak ng-repeat="chapter in allDocuments | orderBy: 'docID' | filter: myFilterByFunction">
-					<div id="output_div">
-						<ul>
-							<li class="group">
-								<h2>
+
+					<ul>
+						<li class="group">
+							<h2>
 							{{chapter.docID}} 
-							<a class='videoTitles' style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter)">{{chapter.title}} </a> 
+							<a class='videoTitles' style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
         					</h2>
-								<!--								<h4>Document Rated : {{}}</h4>-->
-								<p>{{chapter.shortSummary}}</p>
-							</li>
-						</ul>
-					</div>
+							<!--								<h4>Document Rated : {{}}</h4>-->
+							<p>{{chapter.shortSummary}}</p>
+						</li>
+					</ul>
+
 				</article>
+
 				<br>
 				<br>
 				<div class="button-group">
