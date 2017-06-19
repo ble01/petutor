@@ -198,14 +198,15 @@
 						<li class="group">
 							<h2>
 							{{chapter.docID}} 
-							<a class='videoTitles' style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
+							<a class='videoTitles' id="recommendation" style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
+<!--									The display index is passed to the modal, so we keep track of the order docs are displayed-->
         					</h2>
-							<p>{{chapter.shortSummary}}</p>
+							<p>{{chapter.shortSummary}}</p> Rating given: {{chapter.userRating}}
 						</li>
 					</ul>
 
 				</article>
-
+				
 				<br>
 				<br>
 				<div class="button-group">
