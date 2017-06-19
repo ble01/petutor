@@ -352,7 +352,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	$scope.questionnaire = true;
 	$scope.queryScreen = true; //hide the query screen
 	$scope.buttonChoice = true;
-	$scope.listOfDocuments = true;
+	$scope.listOfDocuments = false;
 	$scope.completionScreen = false; //hide the completion thank you screen 
 
 	//Function to continue to Questionnaire
