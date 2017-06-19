@@ -742,7 +742,9 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	 */
 	$scope.loadMore = function (searchText, page) {
 		console.log("Query: " + searchText);
-		//		console.log("New Query : " + searchText);
+		$scope.refined_query = searchText;
+		console.log("$scope.refined_query : " + $scope.refined_query);
+
 		data.search(searchText, page++).then(function (results) {
 				if (results.length !== 10) {
 					$scope.allResults = true;
@@ -1044,6 +1046,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 						'url': $scope.selectedChapter, // pass link to modal's controller
 						'query': $scope.searchTerm, //The current query
 						'query_id': $scope.query_id, //The ID of the current query
+						'refined_query': $scope.refined_query, //The refined query
 						'docID': $scope.docID, //The ID of the current document
 						'title': $scope.title, //The title of the current document
 						'rating': $scope.rating || 0, //The rating a user gives to a document
@@ -1117,9 +1120,8 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 	//	console.log("$scope.user_id modal: " + $scope.user_id);
 
 	$scope.getSelectedRating = function (rating) {
-
 			$scope.selected.rating = rating;
-			//			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
+			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
 
 			var req = {
 				method: 'POST',
@@ -1130,6 +1132,8 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 				data: $.param({
 					'user_id': $scope.user_id, //the id of the current user 
 					'query_id': $scope.selected.query_id, //the id of the current query 
+					'query_desc': $scope.selected.query, //The original learner query 
+					'refined_query': $scope.selected.refined_query, //The refined learner query 
 					'docID': $scope.selected.docID, //docID of the document being rated
 					'rating': rating, //star rating made by the learner 
 					'displayIndex': $scope.selected.displayIndex //The order in which the documents are displayed to the user
