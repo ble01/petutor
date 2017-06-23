@@ -1,0 +1,343 @@
+[2016-11-09 12:09:59,955][INFO ][cluster.metadata         ] [node_petutor_01] [data] update_mapping [concept]
+[2016-11-09 12:28:22,014][DEBUG][action.search            ] [node_petutor_01] [data][3], node[TIMqc5ZbR6akb6M_5jfi5w], [P], v[2], s[STARTED], a[id=jGnKFL1ISha9M46itRdaBw]: Failed to execute [org.elasticsearch.action.search.SearchRequest@42e1b017]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more
+[2016-11-09 12:28:22,014][DEBUG][action.search            ] [node_petutor_01] [data][2], node[TIMqc5ZbR6akb6M_5jfi5w], [P], v[2], s[STARTED], a[id=0kEnH4spSJqRiXyg0b2-yw]: Failed to execute [org.elasticsearch.action.search.SearchRequest@42e1b017] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more
+[2016-11-09 12:28:22,014][DEBUG][action.search            ] [node_petutor_01] [data][1], node[TIMqc5ZbR6akb6M_5jfi5w], [P], v[2], s[STARTED], a[id=xGAzWq4_S0OsCeIbZdqIQA]: Failed to execute [org.elasticsearch.action.search.SearchRequest@42e1b017] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more
+[2016-11-09 12:28:22,014][DEBUG][action.search            ] [node_petutor_01] [data][0], node[TIMqc5ZbR6akb6M_5jfi5w], [P], v[2], s[STARTED], a[id=3j7-z5s8ReuCmoemEm8hlA]: Failed to execute [org.elasticsearch.action.search.SearchRequest@42e1b017] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more
+[2016-11-09 12:28:22,014][DEBUG][action.search            ] [node_petutor_01] [data][4], node[TIMqc5ZbR6akb6M_5jfi5w], [P], v[2], s[STARTED], a[id=QNg3Gp_iRkmy0i1-ULkOHA]: Failed to execute [org.elasticsearch.action.search.SearchRequest@42e1b017] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more
+[2016-11-09 12:28:22,020][DEBUG][action.search            ] [node_petutor_01] All shards failed for phase: [query]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+Caused by: SearchParseException[failed to parse search source [{
+  "query": {
+    "multi_match": {
+        "query":  ""neural networks for decision tres",
+        "fields": [ "title^2", "description", "conceptSimilarity.conceptLabel"] 
+    }
+  },
+   "size": 3,
+   "_source": ["title", "date","description", "url", "_score"]
+}
+]]; nested: QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[Failed to parse]; nested: JsonParseException[Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]];
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:225)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unexpected character ('n' (code 110)): was expecting comma to separate Object entries
+ at [Source: [B@42951353; line: 4, column: 22]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1702)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:558)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportUnexpectedChar(ParserMinimalBase.java:456)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:761)
+	at org.elasticsearch.common.xcontent.json.JsonXContentParser.nextToken(JsonXContentParser.java:53)
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:72)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	... 15 more

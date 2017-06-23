@@ -1,0 +1,157 @@
+[2017-04-22 10:27:40,178][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][109166][370] duration [7.8s], collections [1]/[8.1s], total [7.8s]/[16.9s], memory [208.4mb]->[179.4mb]/[990.7mb], all_pools {[young] [64.5mb]->[2mb]/[266.2mb]}{[survivor] [343.6kb]->[8.5mb]/[33.2mb]}{[old] [143.6mb]->[169mb]/[691.2mb]}
+[2017-04-22 10:27:41,394][DEBUG][action.search            ] [node_petutor_01] [data][3], node[M2bJsYM8T9GSxw9cLl_BjQ], [P], v[6], s[STARTED], a[id=1DdfhfRMRFii12Ab5Vtrdg]: Failed to execute [org.elasticsearch.action.search.SearchRequest@546dddd3] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:27:41,394][DEBUG][action.search            ] [node_petutor_01] [data][4], node[M2bJsYM8T9GSxw9cLl_BjQ], [P], v[6], s[STARTED], a[id=-dowwIPwTd-4LpvmBly8ag]: Failed to execute [org.elasticsearch.action.search.SearchRequest@546dddd3] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:27:41,394][DEBUG][action.search            ] [node_petutor_01] [data][0], node[M2bJsYM8T9GSxw9cLl_BjQ], [P], v[6], s[STARTED], a[id=KTKUDTKkRXKU4K7wgvZwDA]: Failed to execute [org.elasticsearch.action.search.SearchRequest@546dddd3]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:27:41,394][DEBUG][action.search            ] [node_petutor_01] [data][1], node[M2bJsYM8T9GSxw9cLl_BjQ], [P], v[6], s[STARTED], a[id=y-CcL1fvTM2iznkF58kJCw]: Failed to execute [org.elasticsearch.action.search.SearchRequest@546dddd3] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:27:41,394][DEBUG][action.search            ] [node_petutor_01] [data][2], node[M2bJsYM8T9GSxw9cLl_BjQ], [P], v[6], s[STARTED], a[id=Qt2isQb-Ryi4vn3gmjsblw]: Failed to execute [org.elasticsearch.action.search.SearchRequest@546dddd3] lastShard [true]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:27:43,693][DEBUG][action.search            ] [node_petutor_01] All shards failed for phase: [query]
+RemoteTransportException[[node_petutor_01][127.0.0.1:9300][indices:data/read/search[phase/query]]]; nested: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+Caused by: SearchParseException[failed to parse search source [{"size":10,"from":0,"query":{"multi_match":{"type":"cross_fields","fields":["title","description"]}}}]]; nested: QueryParsingException[No text specified for multi_match query];
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:873)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:667)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:633)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:377)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:368)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$SearchQueryTransportHandler.messageReceived(SearchServiceTransportAction.java:365)
+	at org.elasticsearch.transport.TransportRequestHandler.messageReceived(TransportRequestHandler.java:33)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:77)
+	at org.elasticsearch.transport.TransportService$4.doRun(TransportService.java:376)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: [data] QueryParsingException[No text specified for multi_match query]
+	at org.elasticsearch.index.query.MultiMatchQueryParser.parse(MultiMatchQueryParser.java:146)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:250)
+	at org.elasticsearch.index.query.IndexQueryParserService.innerParse(IndexQueryParserService.java:320)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:218)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:856)
+	... 12 more
+[2017-04-22 10:29:19,428][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][109261][371] duration [1.3s], collections [1]/[2s], total [1.3s]/[18.3s], memory [236mb]->[176.3mb]/[990.7mb], all_pools {[young] [58.5mb]->[496.1kb]/[266.2mb]}{[survivor] [8.5mb]->[2.3mb]/[33.2mb]}{[old] [169mb]->[173.5mb]/[691.2mb]}
+[2017-04-22 10:29:24,654][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][109263][372] duration [3.2s], collections [1]/[4.1s], total [3.2s]/[21.5s], memory [204.9mb]->[227.2mb]/[990.7mb], all_pools {[young] [29.1mb]->[29.7mb]/[266.2mb]}{[survivor] [2.3mb]->[8.5mb]/[33.2mb]}{[old] [173.5mb]->[189mb]/[691.2mb]}
+[2017-04-22 10:29:39,980][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][109271][373] duration [5.6s], collections [1]/[6.6s], total [5.6s]/[27.2s], memory [265.1mb]->[226.8mb]/[990.7mb], all_pools {[young] [67.6mb]->[2mb]/[266.2mb]}{[survivor] [8.5mb]->[8.5mb]/[33.2mb]}{[old] [189mb]->[216.3mb]/[691.2mb]}
+[2017-04-22 10:29:43,183][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][109272][374] duration [2.5s], collections [1]/[3.2s], total [2.5s]/[29.7s], memory [226.8mb]->[274.9mb]/[990.7mb], all_pools {[young] [2mb]->[339.2kb]/[266.2mb]}{[survivor] [8.5mb]->[8.5mb]/[33.2mb]}{[old] [216.3mb]->[266.1mb]/[691.2mb]}
+[2017-04-22 10:30:58,810][INFO ][monitor.jvm              ] [node_petutor_01] [gc][young][109347][375] duration [992ms], collections [1]/[1.2s], total [992ms]/[30.7s], memory [209.7mb]->[180.2mb]/[990.7mb], all_pools {[young] [53.2mb]->[530.8kb]/[266.2mb]}{[survivor] [8.5mb]->[8.5mb]/[33.2mb]}{[old] [147.9mb]->[171.2mb]/[691.2mb]}
+[2017-04-22 10:30:59,886][INFO ][monitor.jvm              ] [node_petutor_01] [gc][young][109348][376] duration [949ms], collections [1]/[1s], total [949ms]/[31.7s], memory [180.2mb]->[236.1mb]/[990.7mb], all_pools {[young] [530.8kb]->[29.8mb]/[266.2mb]}{[survivor] [8.5mb]->[8.5mb]/[33.2mb]}{[old] [171.2mb]->[197.8mb]/[691.2mb]}

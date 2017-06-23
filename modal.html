@@ -29,7 +29,8 @@
 	<!--	<div ng-app='machineLearningRecommender' ng-controller='videoCtrl'>-->
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
-		<h2 style="color:#000000 ! important;" align="center">Query : {{selected.query}}</h2>
+		<h2 style="color:#000000 ! important;" align="left">Query: {{selected.query}}</h2>
+		<h2 style="color:#000000 ! important;" align="left">Document Title: {{selected.title}}</h2>
 		<!--		<h4> Document Title: {{ selected.title}} </h4>-->
 		<div ng-repeat="rating in ratings">
 			<div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>

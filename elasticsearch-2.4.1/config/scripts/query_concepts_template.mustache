@@ -1,0 +1,9 @@
+PUT /_search/template/query_concepts_template
+{
+  "template": {
+    "match": {
+      "_all": "{{query_string}}"
+    }
+  },
+  "size": 150
+}

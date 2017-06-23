@@ -1,0 +1,21 @@
+{
+  "name": "machine-learning-recommender",
+  "version": "0.0.0",
+  "authors": [
+    "Blessing Mbipom"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">1.5",
+    "elasticsearch": "~2.4.0",
+    "components-font-awesome": "^4.7.0",
+    "angular-rating": "^3.1.0"
+  }
+}

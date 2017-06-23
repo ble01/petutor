@@ -1,0 +1,6 @@
+[2017-04-06 10:24:08,851][INFO ][cluster.metadata         ] [node_petutor_01] [data] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2017-04-06 10:24:10,546][INFO ][cluster.routing.allocation] [node_petutor_01] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[data][4]] ...]).
+[2017-04-06 10:24:10,707][INFO ][cluster.metadata         ] [node_petutor_01] [data] create_mapping [chapter]
+[2017-04-06 10:26:44,979][INFO ][cluster.metadata         ] [node_petutor_01] [data] create_mapping [concept]
+[2017-04-06 10:27:35,796][INFO ][cluster.metadata         ] [node_petutor_01] [data] update_mapping [chapter]
+[2017-04-06 10:27:58,312][INFO ][cluster.metadata         ] [node_petutor_01] [data] update_mapping [concept]

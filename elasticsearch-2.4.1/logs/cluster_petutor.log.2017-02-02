@@ -1,0 +1,23 @@
+[2017-02-02 10:46:57,164][INFO ][node                     ] [node_petutor_01] version[2.4.1], pid[7124], build[c67dc32/2016-09-27T18:57:55Z]
+[2017-02-02 10:46:57,274][INFO ][node                     ] [node_petutor_01] initializing ...
+[2017-02-02 10:47:09,116][INFO ][plugins                  ] [node_petutor_01] modules [reindex, lang-expression, lang-groovy], plugins [head], sites [head]
+[2017-02-02 10:47:11,288][INFO ][env                      ] [node_petutor_01] using [1] data paths, mounts [[OS (C:)]], net usable_space [673.9gb], net total_space [921gb], spins? [unknown], types [NTFS]
+[2017-02-02 10:47:11,304][INFO ][env                      ] [node_petutor_01] heap size [990.7mb], compressed ordinary object pointers [true]
+[2017-02-02 10:47:55,374][INFO ][script                   ] [node_petutor_01] compiling script file [C:\ElasticSearch\elasticsearch-2.4.1\config\scripts\query_concepts_template.mustache]
+[2017-02-02 10:47:59,718][INFO ][node                     ] [node_petutor_01] initialized
+[2017-02-02 10:47:59,718][INFO ][node                     ] [node_petutor_01] starting ...
+[2017-02-02 10:48:05,175][INFO ][transport                ] [node_petutor_01] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}, {[::1]:9300}
+[2017-02-02 10:48:05,425][INFO ][discovery                ] [node_petutor_01] cluster_petutor/zducLkrmQvmN_H1d7uF-3g
+[2017-02-02 10:48:09,660][INFO ][cluster.service          ] [node_petutor_01] new_master {node_petutor_01}{zducLkrmQvmN_H1d7uF-3g}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2017-02-02 10:48:09,989][INFO ][http                     ] [node_petutor_01] publish_address {127.0.0.1:9201}, bound_addresses {127.0.0.1:9201}, {[::1]:9201}
+[2017-02-02 10:48:09,989][INFO ][node                     ] [node_petutor_01] started
+[2017-02-02 10:48:54,701][DEBUG][action.admin.cluster.node.stats] [node_petutor_01] failed to execute on node [zducLkrmQvmN_H1d7uF-3g]
+ReceiveTimeoutTransportException[[node_petutor_01][127.0.0.1:9300][cluster:monitor/nodes/stats[n]] request_id [46] timed out after [15017ms]]
+	at org.elasticsearch.transport.TransportService$TimeoutHandler.run(TransportService.java:696)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+[2017-02-02 10:49:20,504][WARN ][transport                ] [node_petutor_01] Received response for a request that has timed out, sent [40820ms] ago, timed out [25803ms] ago, action [cluster:monitor/nodes/stats[n]], node [{node_petutor_01}{zducLkrmQvmN_H1d7uF-3g}{127.0.0.1}{127.0.0.1:9300}], id [46]
+[2017-02-02 10:49:26,145][INFO ][gateway                  ] [node_petutor_01] recovered [8] indices into cluster_state
+[2017-02-02 10:49:26,395][WARN ][cluster.service          ] [node_petutor_01] cluster state update task [local-gateway-elected-state] took 1.2m above the warn threshold of 30s
+[2017-02-02 10:51:13,178][INFO ][cluster.routing.allocation] [node_petutor_01] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[.kibana][0]] ...]).
