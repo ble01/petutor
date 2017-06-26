@@ -55,175 +55,12 @@ MachineLearningRecommender.directive('starRating', function () {
 /**
  * Create a service to power calls to Elasticsearch. We only need to use the _search endpoint.
  */
-MachineLearningRecommender.factory('videoService', ['$q', 'esFactory', '$location', function ($q, elasticsearch, $location) {
-	var client = elasticsearch({
-		host: $location.host() + ":9201"
-	});
 
-
-	/**
-	 * Given a term, search on the pseudoDocuments of concepts and return all 150 concepts.
-	 * Given a term, load a set of 3 concepts.       
-	 * Returns a promise.
-	 */
-	var searchConcept = function (term) {
-		var deferred = $q.defer();
-		var queryConcept = {
-			"multi_match": {
-				"query": term,
-				"fields": ["conceptLabel", "conceptDescription"]
-			}
-		};
-
-		client.search({
-			"index": 'data',
-			"type": 'concept',
-			"body": {
-				"size": 3, // We only use top K concepts for refining the query
-				"from": 0,
-				"query": queryConcept
-			}
-		}).then(function (result) {
-			var aggDocs = [];
-			var ii = 0,
-				hits_in, hits_out = [];
-			hits_in = (result.hits || {}).hits || [];
-			for (; ii < hits_in.length; ii++) {
-				hits_out.push(hits_in[ii]._source);
-				aggDocs.push({
-					"conceptLabel": hits_in[ii]._source.conceptLabel,
-					"simScore": hits_in[ii]._score
-				}); //add new data to aggsDoc array
-				//				console.log((ii + 1) + " -> " + hits_in[ii]._source.conceptLabel + " -> " + hits_in[ii]._score);
-				//				console.log(hits_in[ii]._source.conceptLabel + " , " + hits_in[ii]._score); //just print out labl and score for feature extraction
-				//				console.log(hits_in[ii]._source.conceptLabel +  " , " + hits_in[ii]._score);
-			}
-			deferred.resolve(aggDocs);
-			//	deferred.resolve(hits_out);
-		}, deferred.reject).catch(function (e) {
-			console.log(e);
-		});
-
-		return deferred.promise;
-	};
-
-	/**
-	 * Given a term, search on all the Concepts and return all 150 concepts.
-	 * Returns a promise.
-	 */
-	var searchAllConcept = function (term) {
-		var deferred = $q.defer();
-		var queryAllConcept = {
-			"match_all": {}
-		};
-
-		client.search({
-			"index": 'data',
-			"type": 'concept',
-			"body": {
-				"size": 150, //This is the total number of concepts 
-				"from": 0,
-				"query": queryAllConcept
-			}
-		}).then(function (result) {
-			var ii = 0,
-				hits_in, hits_out = [];
-			hits_in = (result.hits || {}).hits || [];
-			for (; ii < hits_in.length; ii++) {
-				hits_out.push(hits_in[ii]._source);
-			}
-			deferred.resolve(hits_out);
-		}, deferred.reject).catch(function (e) {
-			console.log(e);
-		});
-
-		return deferred.promise;
-	};
-
-	/**
-	 * Given a term, search on all the Documents and return all 504 docs.
-	 * Returns a promise.
-	 */
-	var searchDocument = function () {
-		var deferred = $q.defer();
-		var queryDocument = {
-			"match_all": {}
-		};
-
-		client.search({
-			"index": 'data',
-			"type": 'chapter',
-			"body": {
-				"size": 504, //This is the total number of documents
-				"from": 0,
-				"query": queryDocument
-			}
-		}).then(function (result) {
-			var ii = 0,
-				hits_in, hits_out = [];
-			hits_in = (result.hits || {}).hits || [];
-			for (; ii < hits_in.length; ii++) {
-				hits_out.push(hits_in[ii]._source);
-			}
-			deferred.resolve(hits_out);
-		}, deferred.reject);
-
-		return deferred.promise;
-	}; //end of searchDocument
-
-	/**
-	 * Given a term and an offset, load another round of 10 documents.       
-	 * Returns a promise.
-	 */
-	var search = function (term, offset) {
-		var deferred = $q.defer();
-
-		var query = {
-			"multi_match": {
-				"query": term,
-				"type": "cross_fields",
-				"fields": ["title", "description"]
-			}
-		};
-
-		client.search({
-			"index": 'data',
-			"type": 'chapter',
-			"body": {
-				"size": 10,
-				"from": (offset || 0) * 10,
-				"query": query
-			}
-		}).then(function (result) {
-			var ii = 0,
-				hits_in, hits_out = [];
-			hits_in = (result.hits || {}).hits || [];
-
-			for (; ii < hits_in.length; ii++) {
-				hits_out.push(hits_in[ii]._source);
-				//				console.log((ii + 1) + " -> " + hitgs_in[ii]._source.title + " --> " + hits_in[ii]._score);
-				//				console.log((ii + 1) + " -> " + hits_in[ii]._source.docID + " -> " + hits_in[ii]._source.title);
-				//								console.log((ii + 1) + " -> " + " 1 -> " + hits_in[ii]._source.title + " -> " + hits_in[ii]._source.docID + " -> " + (ii + 1)); //$scope is not yet available here
-			}
-			deferred.resolve(hits_out);
-		}, deferred.reject);
-
-		return deferred.promise;
-	};
-
-	return {
-		"search": search,
-		"searchConcept": searchConcept,
-		"searchDocument": searchDocument,
-		"searchAllConcept": searchAllConcept
-	};
-
-}]);
 
 /**
  * Create a controller to interact with the UI.
  */
-MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function (data, $scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
+MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function ($scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
 
 	$scope.queries = [];
 	$scope.resultsPerPage = [];
@@ -240,8 +77,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 	var expandedQuery = " ";
 
-	// Initialize the scope defaults.
-	$scope.data = []; // An array of results to display
+	// Initialize the scope defaults. 
 	$scope.concepts = []; //An array of concepts
 	$scope.top3concepts = []; //An array of concepts
 	$scope.allConcepts = []; //An array to hold ALL the concepts, don't know if this is a repetition of $scope.concepts
@@ -283,10 +119,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 				$scope.randomQuery = $scope.queries[idx]['query_desc']; //Show a random query on start
 				// initial search at startup
-				//$scope.loadMore($scope.searchTerm, $scope.page);
-				//				console.log("First load more");
-				//				$scope.searchConcept();
-				//				console.log(response);
+
 			});
 	};
 	//	console.log("$scope.retrieveQueries is called");
@@ -358,8 +191,6 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 	// Function to continue to the evaluation page and write questionnaire results to DB
 	$scope.continueToEval = function () {
-		//		console.log("About to write Survey to DB!");
-		//		console.log($scope.user_id + "," + $scope.user.consent + "," + $scope.user.role + "," + $scope.user.qualification + "," + $scope.user.experience + "," + $scope.user.expertise);
 		$scope.queryScreen = !$scope.queryScreen; // show the header when the "Continue to Evaluation" button is clicked
 		$scope.questionnaire = !$scope.questionnaire; //hide the questionnaire
 
@@ -412,206 +243,19 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
+		$scope.insertPostEvaluation();
+		console.log("Feedback : " + $scope.feedback);
+		$scope.feedback = ""; //clear the user feedback to receive a new one
 	}
 
 	$scope.endEvaluation = function () {
 			$scope.listOfDocuments = !$scope.listOfDocuments; //hide the list of documents
 			$scope.queryScreen = !$scope.queryScreen; //hide the query screen
 			$scope.completionScreen = !false; //show the completion screen
+			$scope.insertPostEvaluation();
+			$scope.feedback = ""; //clear the user feedback to receive a new one	
 		}
 		/*End of hide and show sections for user interface*/
-
-	/*** A fresh search. Reset the scope variables to their defaults, set the q query parameter, and load more results.  */
-	$scope.search = function (theCall) {
-		//		console.log("$scope.firstCall is: " + theCall);
-		$scope.page = 0;
-		$scope.data = [];
-		$scope.allResults = false;
-		//$location.search({'q': $scope.searchTerm});
-
-		if (theCall) {
-			$scope.searchConcept();
-		} else {
-			//$scope.loadMore($scope.searchTerm, $scope.page);
-			console.log("Second load more");
-		}
-		//$scope.insertdata();
-	};
-
-	$scope.dropdownSelect = function (val) {
-		$scope.searchTerm = val;
-		$scope.search();
-	};
-
-	//	$scope.dropdownSelectLink = function (val) {
-	//		return data.searchConcept(val);
-	//	};
-
-	$scope.setThreshold = function (topRetrievals) {
-			//			topRetrievals = $scope.concepts;
-			var sum = 0;
-			var theMean = 0;
-			var meanDeviation = new Array(topRetrievals.length);
-			var conceptLabelsToUse = "";
-			var threshold = 0;
-
-			var ii = 0;
-			for (; ii < topRetrievals.length; ii++) {
-				sum += topRetrievals[ii]['simScore'];
-				console.log("Score " + ii + " = " + topRetrievals[ii]['conceptLabel'] + ", " + topRetrievals[ii]['simScore']);
-			} //end of for loop
-
-			theMean += sum / topRetrievals.length; //Find the mean
-			//				console.log("theMean = " + theMean);
-
-			var k = 0;
-			for (; k < topRetrievals.length; k++) {
-				//					meanDeviation[k] = 0.0;
-				//For each value, find the deviation from the mean
-				meanDeviation[k] = topRetrievals[k]['simScore'] - theMean;
-				//					console.log("meanDeviation[k] = " + meanDeviation[k]);
-				//First check if the mean deviation is positive, i.e greater than the mean, then we add the concept label
-				//Else if the meanDeviation is < 0 i.e negative 
-				//Use a threshold to determine how much the value deviates from the mean; //if threshold <= 0.1 or 10%; we retain the concept
-				threshold = (Math.abs(meanDeviation[k]) / theMean);
-
-				if (meanDeviation[k] > 0) {
-					conceptLabelsToUse += topRetrievals[k].conceptLabel + " ";
-					console.log("meanDeviation[ii] > 0 so add: " + topRetrievals[k].conceptLabel);
-				} else if (threshold < 0.1) {
-					//						console.log("meanDeviation[k] = " + meanDeviation[k] + ", threshold = " + threshold);
-					conceptLabelsToUse += topRetrievals[k].conceptLabel + " ";
-					console.log("threshold < 0.1 so add: " + topRetrievals[k].conceptLabel);
-				} else {
-					//do nothing
-					conceptLabelsToUse += "";
-					//					console.log("Else do nothing");
-				} //end of if 
-
-			} //end of loop
-			return conceptLabelsToUse; // add these concept labels to the searchTerm for expanding the query  
-		} //end of setThreshold method
-
-
-	$scope.searchConcept = function () {
-		console.log("$scope.searchTerm: " + $scope.searchTerm);
-
-		data.searchConcept($scope.searchTerm).then(function (results) {
-			var currentQuery = $scope.searchTerm.toLowerCase();
-
-			if (results.length > 0) {
-				$scope.concepts = results;
-
-				if ($scope.conceptlabelsArray.some(function (v) {
-						if (currentQuery.indexOf(v) >= 0) {
-							console.log("Found: " + $scope.conceptlabelsArray[$scope.conceptlabelsArray.indexOf(v)]);
-
-							if (currentQuery === $scope.conceptlabelsArray[$scope.conceptlabelsArray.indexOf(v)]) {
-								console.log("current query");
-							}
-						}
-
-						return currentQuery.indexOf(v) >= 0;
-					})) {
-
-				} else {
-
-				}
-
-				/*call the method to check the threshold for HYBRID*/
-				//				var labelsToUse = $scope.setThreshold($scope.concepts);
-				//				console.log("labelsToUse: " + labelsToUse);
-				//				currentQuery += " " + labelsToUse;
-
-				//				$scope.insertQueryData(queryFeatures);
-
-				$http({
-					method: 'POST',
-					url: 'http://localhost:8080/eTutor/api/newquery',
-					data: $scope.concepts,
-					responseType: 'text'
-				}).then(function (response) {
-						//																		/*
-						//						if ($scope.conceptlabelsArray.some(function (v) {
-						//								if (currentQuery.indexOf(v) >= 0) {
-						//									console.log("Found: " + $scope.conceptlabelsArray[$scope.conceptlabelsArray.indexOf(v)]);
-						//								}
-						//
-						//								return currentQuery.indexOf(v) >= 0;
-						//							})) {
-						//
-						//							console.log("BOW");
-						//							//													console.log("BOW for: " + currentQuery);
-						//
-						//							//1. ordinary loadMore for BOW method 
-						//							$scope.loadMore($scope.searchTerm, $scope.page);
-						//
-						//						} else {
-						//							console.log("Concept Based");
-						//							//													console.log("Concept Based for: " + currentQuery);
-						//							//2. CB1: top k terms from pseudo - documents + original query // + first concept label
-						//							$scope.loadMore(($scope.searchTerm + " " + response.data.newQuery), $scope.page);
-						//							// $scope.loadMore(($scope.searchTerm + " " + $scope.concepts[0].conceptLabel), $scope.page);
-						//						}
-						$scope.loadMore($scope.searchTerm, $scope.page);
-						//	$scope.loadMore((queryFeatures.searchTerm), queryFeatures, $scope.page);//BOW for Experiment Data
-						//						$scope.loadMore((queryFeatures.searchTerm + " " + response.data.newQuery), $scope.page); //CB in Experiment
-						//						console.log("CB" + $scope.concepts.length + ":Initial Query: " + currentQuery);
-						//						//2. CB1: CB1: top k terms from pseudo - documents + original query // + first concept label
-						//						$scope.loadMore(($scope.searchTerm + " " + response.data.newQuery), $scope.page);
-
-						//						console.log("Concept Based for: " + currentQuery);
-						//						//							//2. CB1: top k terms from pseudo - documents + original query // + first concept label
-						//						$scope.loadMore(($scope.searchTerm + " " + response.data.newQuery), $scope.page);
-
-						//5. CB3: Initial query + first concept label
-						//					$scope.loadMore(($scope.searchTerm + " " + $scope.concepts[0].conceptLabel), $scope.page);
-						//					console.log("Writing the results to Result Table...");
-						//					//Call the insertTableData method to write the Recommendations to the sql DB Table
-						//					$scope.insertTableData();
-
-					},
-					function (error) {
-						console.log("error");
-						console.log(error);
-					});
-			}
-		});
-	};
-
-	$scope.searchAllConcept = function () {
-		data.searchAllConcept().then(function (results) {
-			var ii = 0;
-			var temp = "";
-			for (; ii < results.length; ii++) {
-				$scope.allConcepts.push(results[ii]);
-				temp = results[ii].conceptLabel;
-				if (temp) {
-					//					console.log(temp + " -> " + temp.toLowerCase());
-					$scope.allConceptLabels.push(temp.toLowerCase());
-				}
-				temp = "";
-			} //end of for loop
-
-
-		});
-	};
-
-
-
-	$scope.searchDocument = function () {
-		data.searchDocument().then(function (results) {
-			var ii = 0;
-			for (; ii < results.length; ii++) {
-				$scope.allDocuments.push(results[ii]);
-			}
-			//			console.log("All docs length: " + $scope.allDocuments.length); //Always prints out the total number of documents in the collection
-		});
-	};
-
-
-
-	///////////////////////////////////////////////	 
 
 	$scope.myFilterBy = function (e) {
 		var theResult;
@@ -619,170 +263,14 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 		return theResult;
 	}
 
-
-
 	// A method to shuffle array elements. //Another way to shuffle is using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle.
-	//Bad method to do a random shuffle of array elements
-	$scope.list = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-	$scope.randomFunction = function () {
-		return 0.5 - Math.random();
-	}
-
-	function randomizeItems(items) {
-		var cached = items.slice(0),
-			temp, i = cached.length,
-			rand;
-		while (--i) {
-			rand = Math.floor(i * Math.random());
-			temp = cached[rand];
-			cached[rand] = cached[i];
-			cached[i] = temp;
-		}
-		return cached;
-	}
-
-	$scope.randomizeList = function () {
-		var list = document.getElementById("myItems");
-		var nodes = list.children,
-			i = 0;
-		nodes = Array.prototype.slice.call(nodes);
-		nodes = randomizeItems(nodes);
-		while (i < nodes.length) {
-			list.appendChild(nodes[i]);
-			++i;
-		}
-		list.style.display = "block";
-	}
-
-
 	//	//*** I use this one. Another method to select the documents to display from an intersection of allDocuments and selectedDocs based on same docID
 	$scope.myFilterByFunction = function (e) {
 			return $scope.selectedDocIndicesShuffled.indexOf(e.docID) !== -1;
 		}
 		///////////////////////////////////////////////
 
-	/*
-	 * shuffles the array
-	 * @param {Array} myArray array to shuffle
-	 */
-	function shuffleArray(myArray) {
-		for (var i = myArray.length - 1; i > 0; i--) {
-			var j = Math.floor(Math.random() * (i + 1));
-			var temp = myArray[i];
-			myArray[i] = myArray[j];
-			myArray[j] = temp;
-		}
-		return myArray;
-	}
-
-	var $ul, $li, li_content, li_list;
-	// find all lists to shuffle
-	$("#contact_div > ul").each(function () {
-		$ul = $(this);
-		li_list = [];
-		// shuffle only elements that don't have "group" class
-		$ul.find("li[class!='group']").each(function () {
-			// add content to the array and remove item from the DOM
-			li_list.push($(this).html());
-			$(this).remove();
-		});
-
-		// shuffle the list
-		li_list = shuffleArray(li_list);
-		while (li_content = li_list.pop()) {
-			// create <li> element and put it back to the DOM
-			$li = $("<li />").html(li_content);
-			$ul.append($li);
-		}
-	});
-
-	$("#contact_div").show();
-
-
-	///////////////////////////////
-	$scope.appendQuery = function (val) {
-		$scope.searchTerm = $scope.searchTerm + " and " + val;
-		$scope.search(false); //performing standard search, so I set firstCall to false
-	};
-
-
-	//function to show top 3 most similar concepts to a query
-	$scope.expandQuery = function () {
-		var txt = ""; //console.log($scope.concepts[0].conceptLabel);
-		if ($scope.concept0) {
-			txt += $scope.concepts[0].conceptLabel;
-		}
-		if ($scope.concept1) {
-			txt += ' ' + $scope.concepts[1].conceptLabel;
-		}
-		if ($scope.concept2) {
-			txt += ' ' + $scope.concepts[2].conceptLabel;
-		}
-		//		console.log(txt);
-		$scope.conceptTerm = $scope.searchTerm + ' ' + txt;
-		//		$scope.searchTerm = $scope.conceptTerm + " and " + txt;	
-		$scope.data = [];
-		$scope.allResults = false;
-		$scope.loadMore($scope.conceptTerm, 0);
-		//document.getElementById("my-checkbox").checked = true;
-		$scope.concept0 = false;
-		$scope.concept1 = false;
-		$scope.concept2 = false;
-	};
-
-	/**
-	 * Load the next page of results, incrementing the page counter.
-	 * When query is finished, push results onto $scope.data and decide
-	 * whether all results have been returned (i.e. were 10 results returned?)
-	 */
-	$scope.loadMore = function (searchText, page) {
-		console.log("Query: " + searchText);
-		$scope.refined_query = searchText;
-		console.log("$scope.refined_query : " + $scope.refined_query);
-
-		data.search(searchText, page++).then(function (results) {
-				if (results.length !== 10) {
-					$scope.allResults = true;
-				}
-
-				var ii = 0;
-				for (; ii < results.length; ii++) {
-					$scope.data.push(results[ii]);
-				}
-				var rank1 = 1;
-				var rank2 = 2;
-				var rank3 = 3;
-				$scope.docID = results[0].docID;
-				//print out the results
-				var k = 0;
-				//				console.log("RECOMMENDATION for CB");
-				for (; k < 3; k++) {
-					//					$scope.result_id = (k + 1); //this should be a counter; incremented each time
-					$scope.method_id = 1; //the current method we are running i.e 1 for CB, and 2 for BOW
-					//					$scope.query_id = $scope.query_id; //the id of the query 
-					$scope.docID = results[k].docID;
-					$scope.rank = (k + 1);
-					$scope.docTitle = results[k].title;
-					//Call the insertTableData method to write the Recommendations to the sql DB Table
-					//$scope.insertTableData();
-					//					$scope.insertExperimentData(queryFeatures);
-					//					console.log((k + 1) + " -> " + $scope.docID + " -> " + results[k].title);
-				}
-				//				console.log("Query_" + $scope.query_id + " : " + $scope.searchTerm);
-				//				console.log("$scope.user_id in Search: " + $scope.user_id);
-				$scope.searchAllConcept();
-				$scope.searchDocument();
-				$scope.getTag(); //call getTag method from below
-				$scope.getConcept(); //call getConcept method from below
-			})
-			.catch(function (e) {
-				console.log(e);
-			});
-		//can we write to DB here
-	};
-
-
-	/*New method of calling script to insert into DB, yet to implement*/
+	/*New method of calling script to insert into DB*/
 	$scope.insertdata = function (resource) {
 		var req = {
 			method: 'POST',
@@ -805,6 +293,28 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 		});
 	};
 
+
+	$scope.insertPostEvaluation = function () {
+		var req = {
+			method: 'POST',
+			url: 'php/insertPostEvaluation.php',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $.param({
+				'user_id': $scope.user_id, //the id of the current user 
+				'feedback': $scope.feedback //the user's response to the postEvaluation question			 
+			})
+		}
+
+		$http(req).then(function (resonse) {
+			console.log("feedback received succesfully");
+		}, function (error) {
+			alert("Sorry! Data could not be inserted into DB!");
+			console.error(error);
+		});
+	}; //end of insertPostEvaluation method
+
 	$scope.insertTableData = function () {
 		var req = {
 			method: 'POST',
@@ -818,7 +328,6 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 				'query_id': $scope.query_id, //the id of the query 
 				'docID': $scope.docID,
 				'rank': $scope.rank
-					//include displayRank
 			})
 		}
 
@@ -829,192 +338,6 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 			console.error(error);
 		});
 	};
-
-	$scope.insertQueryData = function (queryFeatures) {
-		var req = {
-			method: 'POST',
-			url: 'php/insertQueryData.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: $.param({
-				'query_id': queryFeatures.query_id, //the id of the current
-				'query_desc': queryFeatures.searchTerm, //the desc of the query 
-				'maxSimScore': queryFeatures.maxSimScore, //the current method we are running i.e 1 for CB, and 2 for BOW
-				'queryLength': queryFeatures.queryLength, //the id of the query 
-				'containsConceptLabel': queryFeatures.containsConceptLabel,
-				'exactConceptLabel': queryFeatures.exactConceptLabel,
-				'method_name': queryFeatures.method_name
-					//include displayRank
-			})
-		}
-
-		$http(req).then(function (response) {
-			console.log("Query Data Inserted Successfully");
-		}, function (error) {
-			alert("Sorry! Data Couldn't be inserted!");
-			console.error(error);
-		});
-	};
-
-	$scope.insertExperimentData = function (queryFeatures) {
-		var req = {
-			method: 'POST',
-			url: 'php/insertExperimentData.php',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			data: $.param({
-				//				'experiment_id': $scope.experiment_id, //this should be a counter; auto-incremented each time
-				'query_id': queryFeatures.query_id, //the id of the query 
-				'query_desc': queryFeatures.searchTerm, //the desc of the query 
-				'method_name': queryFeatures.method_name, //the current method we are running i.e 1 for CB, and 2 for BOW
-				'rank': $scope.rank,
-				'docID': $scope.docID,
-				'docTitle': $scope.docTitle
-			})
-		}
-
-		$http(req).then(function (response) {
-			//			console.log("Experiment Data Inserted Successfully");
-		}, function (error) {
-			alert("Sorry! Data Couldn't be inserted!");
-			console.error(error);
-		});
-	};
-
-
-	$scope.allTag = []; // all selected tags
-	$scope.topKtags = []; //top K tags e.g if K = 10; then top10tags
-
-	//For each retrieval page, get the conceptSimilarity field of the documents
-	$scope.getTag = function () {
-		//		console.log("Length of $scope.data = " + $scope.data.length);
-		angular.forEach($scope.data, function (val, key) {
-			var res = _.sortBy(val.conceptSimilarity, 'simScore').reverse(); //For each retrieved result, sort its entire conceptSimilarity Array
-			var max = res.length > 5 ? 5 : res.length; //if there are NOT up to 5 elements in the conceptSimilarity array, use the number of elements as the max			 
-			for (var i = 0; i < max; i++) {
-				$scope.addTag(res[i]);
-			}
-		});
-
-		$scope.allTag = _.sortBy($scope.allTag, 'weight').reverse(); //allTag holds, the conceptLabel and simScore
-		$scope.topKtags = $scope.allTag.slice(0, 12); // We slice the sorted tags, and take the top 10 and store in topKtags		 
-	};
-
-	//Function to add a conceptLabel and simScore to the array, if they don't exist already
-	$scope.addTag = function (tag) {
-		var pos = $scope.allTag.map(function (e) {
-			return e.text
-		}).indexOf(tag.conceptLabel);
-		//			console.log("Current: " + $scope.allTag[pos]);
-		if (pos == -1) {
-			$scope.allTag.push({
-				"text": tag.conceptLabel,
-				"weight": tag.simScore,
-				//				"link": $scope.dropdownSelect(tag.conceptLabel) 
-				"link": "https://en.wikipedia.org/wiki/" + (tag.conceptLabel)
-			}); //add new to array
-			//				console.log('Adding new: ' + tag.conceptLabel);
-		} else {
-			$scope.allTag[pos].weight = $scope.allTag[pos].weight + tag.simScore; // update simScore if conceptLabel already exists i.e add the simScore
-			//			console.log("allTag.weight = " + $scope.allTag[pos].weight);
-			//				console.log('Updating existing: ' + tag.conceptLabel);
-		}
-	};
-
-	//************* Using TF-IDF Aggregation for Similar Concepts ***********
-	$scope.allConcept = []; // all selected concepts
-	$scope.allConceptCounter = []; // all selected concepts
-	$scope.allConceptTFIDF = []; // all selected concepts
-	$scope.topKconcepts = []; //top K concepts e.g if K = 10; then top10concepts
-
-
-	//For each retrieval page, get the conceptSimilarity field of the documents
-	$scope.getConcept = function () {
-		$scope.allCount = 0;
-		$scope.count = 0.0;
-
-		//		console.log("Length of $scope.data = " + $scope.data.length);
-		angular.forEach($scope.data, function (val, key) {
-			var res = _.sortBy(val.conceptSimilarity, 'simScore').reverse(); //For each retrieved result, sort its entire conceptSimilarity Array
-			var max = res.length > 1 ? 1 : res.length; //if there are NOT up to 5 elements in the conceptSimilarity array, use the number of elements as the max 
-			for (var i = 0; i < max; i++) {
-				//				console.log("res[i] = " + res[i]);
-				$scope.addConcept(res[i]);
-			}
-		}); //end of forEach
-
-		$scope.allConcept = _.sortBy($scope.allConcept, 'weight').reverse(); //allConcept holds, the conceptLabel and simScore
-		$scope.topKconcepts = $scope.allConcept.slice(0, 15); // We slice the sorted concepts, and take the top 10 and store in topKconcepts
-		$scope.allConceptCounter = _.sortBy($scope.allConceptCounter, 'count').reverse();
-		$scope.allConceptTFIDF = _.sortBy($scope.allConceptTFIDF, 'count').reverse();
-
-		//		console.log("------------allConceptCounter---------------------");
-		for (var i = 0; i < $scope.allConceptCounter.length; i++) {
-			//			console.log($scope.allConceptCounter[i].text + "--> " + $scope.allConceptCounter[i].count);
-		}
-		//		console.log("========== IDF ================");
-		for (var i = 0; i < $scope.allConcept.length; i++) {
-			//			console.log($scope.allConcept[i].text + "--> " + $scope.allConcept[i].weight);
-		}
-		//		console.log("========== TF-IDF ================");
-		for (var i = 0; i < $scope.allConceptTFIDF.length; i++) {
-			//			console.log($scope.allConceptTFIDF[i].text + "--> " + $scope.allConceptTFIDF[i].weight);
-		}
-
-		//		console.log("allCount = " + $scope.allCount);
-	};
-
-	//Function to add a conceptLabel and simScore to the array, if they don't exist already
-	$scope.addConcept = function (concept) {
-		var pos = $scope.allConcept.map(function (e) {
-			return e.text
-		}).indexOf(concept.conceptLabel);
-
-		var conceptWeight = 0.0;
-		var theCount = 0.0;
-		var theConceptLabel;
-
-		if (pos == -1) { //if the concept is not in the allConcept[], push it to the array
-			$scope.count = 1.0; //this is the first occurence of the concept
-			//conceptWeight = ($scope.data.length / $scope.count); //IDF Only--> update simScore if conceptLabel already exists 
-			theConceptLabel = concept.conceptLabel;
-			conceptWeight = 1.0;
-
-			$scope.allConcept.push({
-				"text": theConceptLabel,
-				"weight": conceptWeight,
-				//				"weight": concept.simScore,
-				"link": "https://en.wikipedia.org/wiki/" + (concept.conceptLabel)
-			}); //add new to array
-
-			theCount = 1.0;
-			$scope.allConceptCounter.push({
-				"text": theConceptLabel,
-				"count": theCount,
-				//				"weight": concept.simScore,
-				"link": "https://en.wikipedia.org/wiki/" + (concept.conceptLabel)
-			}); //add new to array
-
-			$scope.allConceptTFIDF.push({
-				"text": theConceptLabel,
-				"weight": conceptWeight,
-				//				"weight": concept.simScore,
-				"link": "https://en.wikipedia.org/wiki/" + (concept.conceptLabel)
-			}); //add new to array
-
-			$scope.allCount++;
-		} else {
-			$scope.allConceptCounter[pos].count = $scope.allConceptCounter[pos].count + 1.0;
-			$scope.allConceptTFIDF[pos].weight = concept.simScore * ($scope.data.length / $scope.allConceptCounter[pos].count); //TF * IDF
-			$scope.allConcept[pos].weight = ($scope.data.length / $scope.allConceptCounter[pos].count);
-			$scope.allCount++;
-		} //end of else 
-	};
-
-	//************* END of Using TF-IDF Aggregation for Similar Concepts ***********//
-
 
 	$scope.ratingCheckCounter = []; //new Array($scope.selectedDocIndices.length);
 	// For AngularUI Modal. I am just replacing video with chapter for now, as I use the chapters from eBooks
@@ -1087,9 +410,6 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 			//								if (currentQuery.indexOf(v) >= 0) {
 			//									console.log("Found: " + $scope.conceptlabelsArray[$scope.conceptlabelsArray.indexOf(v)]);
 
-
-
-
 			//			console.log("docID is: " + $scope.selectedDocIndicesShuffled[$scope.selectedDocIndicesShuffled.indexOf(e.docID)]);
 			//			for (var i = 0; i < $scope.allDocuments.length; i++) { //for the length of the selected Documents
 			//				if ($scope.allDocuments[i].docID)
@@ -1097,7 +417,6 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 			//			}
 			//			return output;
 		} //end of checkRating function
-
 
 			}]); //end of MachineLearningRecommender controller
 
@@ -1113,8 +432,6 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 		current: $scope.selected.rating == 0 ? 1 : $scope.selected.rating,
 		max: 5
     }];
-
-	//	console.log("$scope.user_id modal: " + $scope.user_id);
 
 	$scope.getSelectedRating = function (rating) {
 			$scope.selected.rating = rating;
@@ -1158,13 +475,9 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 		$scope.ok();
 		$uibModalInstance.dismiss('cancel');
 		//		console.log("showRating Before = " + $scope.showRating);
-		$scope.showRating = !false; //show the span with a user's rating for a document
-		//		console.log("Modal dismissed with X!");
-		//		console.log("showRating After = " + $scope.showRating);
+		$scope.showRating = !false; //show the span with a user's rating for a document 
 	};
-
 }]);
-
 
 angular.module('myAppWithSceDisabledmyApp', []).config(function ($sceProvider) {
 	// Completely disable SCE.  For demonstration purposes only!

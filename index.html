@@ -188,32 +188,38 @@
 			</div>
 
 			<!-- end of queryScreen -->
-			<section class='col-sm-12' ng-hide="listOfDocuments">
+			<section class='col-sm-12' ng-hide="listOfDocuments" name='queryScreen'>
 				<h4> * Please rate each of the following recommendations shown for this query. These are presented in a random order. </h4>
 
 				<h2 style="color:#000000 ! important;">Query : {{searchTerm}}</h2>
-				<article class='video' ng-cloak ng-repeat="chapter in fullChapter | orderBy: 'docID'">
 
-					<ul>
-						<li class="group">
-							<h2>
+				<!--				<article class='video' ng-cloak ng-repeat="chapter in allDocuments | orderBy: 'docID' | filter: myFilterByFunction">-->
+				<article class='video' ng-cloak ng-repeat="chapter in fullChapter | orderBy: 'docID'">
+					<div id="output_div">
+						<ul>
+							<li class="group">
+								<h2>
 							{{chapter.docID}} 
-							<a class='videoTitles' id="recommendation" style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
+							<a class='videoTitles' id="recommendation" id="recommendation" style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
 <!--									The display index is passed to the modal, so we keep track of the order docs are displayed-->
         					</h2>
-							<p>{{chapter.shortSummary}}</p>
-							<!--							Rating given: {{chapter.userRating}}-->
-						</li>
-					</ul>
-
+								<p>{{chapter.shortSummary}}</p>
+								<!-- 	<b>Rating given: {{chapter.rating}} </b>-->
+							</li>
+						</ul>
+					</div>
 				</article>
-
 				<br>
 				<br>
-				<div class="button-group">
-					<button type="submit" class="btn btn-default" ng-click="endEvaluation()"><b>End Evaluation</b></button>
+				<div class="button-group" name='theButtons'>
+					<div>
+						<h4>To what extent do you think the documents shown cover the relevant topics in the query? (type answer below)</h4>
+						<input ng-model='feedback' style="color:#000000;" type='text' class="form-control" size="80">
+					</div>
+					<br>
+					<button type="submit" class="btn btn-default" ng-click="endEvaluation()" ng-disabled="ratedDocument"><b>End Evaluation</b></button>
 					&nbsp; &nbsp;
-					<button type="submit" class="btn btn-default" ng-click="evaluateNextQuery()"><b>Evaluate Next Query</b></button>
+					<button type="submit" class="btn btn-default" ng-click="evaluateNextQuery()" ng-disabled="ratedDocument"><b>Evaluate Next Query</b></button>
 				</div>
 			</section>
 			<!-- end of listOfDocuments -->
