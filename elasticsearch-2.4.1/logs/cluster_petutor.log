@@ -1,1 +1,0 @@
-[2017-06-23 10:28:27,814][WARN ][monitor.jvm              ] [node_petutor_01] [gc][young][216293][322] duration [1.8s], collections [1]/[1.9s], total [1.8s]/[7.9m], memory [311.6mb]->[72.4mb]/[990.7mb], all_pools {[young] [255.9mb]->[2.2mb]/[266.2mb]}{[survivor] [978.5kb]->[15.3mb]/[33.2mb]}{[old] [54.7mb]->[54.7mb]/[691.2mb]}
