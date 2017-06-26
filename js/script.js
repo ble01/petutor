@@ -464,7 +464,6 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 		}
 		/*End of Star rating section*/
 
-
 	// actions on click event in modal
 	$scope.ok = function () { // executes on modal close using close button
 		console.log("Modal close button pressed!");
