@@ -192,7 +192,7 @@
 				<h4> * Please rate each of the following recommendations shown for this query. These are presented in a random order. </h4>
 
 				<h2 style="color:#000000 ! important;">Query : {{searchTerm}}</h2>
-				<article class='video' ng-cloak ng-repeat="chapter in allDocuments | orderBy: 'docID' | filter: myFilterByFunction">
+				<article class='video' ng-cloak ng-repeat="chapter in fullChapter | orderBy: 'docID'">
 
 					<ul>
 						<li class="group">
@@ -201,12 +201,13 @@
 							<a class='videoTitles' id="recommendation" style ="color:#0000CC ! important;" data-toggle= "modal" ng-href= "#" ng-click="open('lg', chapter, $index)">{{chapter.title}}</a> 
 <!--									The display index is passed to the modal, so we keep track of the order docs are displayed-->
         					</h2>
-							<p>{{chapter.shortSummary}}</p> Rating given: {{chapter.userRating}}
+							<p>{{chapter.shortSummary}}</p>
+							<!--							Rating given: {{chapter.userRating}}-->
 						</li>
 					</ul>
 
 				</article>
-				
+
 				<br>
 				<br>
 				<div class="button-group">

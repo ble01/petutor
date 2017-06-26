@@ -292,15 +292,15 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	//	console.log("$scope.retrieveQueries is called");
 	$scope.retrieveQueries(); //retrieve $scope.queries from the DB table
 
-	//	function to retrieve SearchResults from the sql database; takes in the query_id
-	$scope.retrieveSearchResult = function (query_id) {
-		console.log("$scope.query_id in retrieveSearchResult: " + $scope.query_id);
+	//	function to retrieve Full SearchResults from the sql database; takes in the query_id
+	$scope.retrieveFullSearchResult = function (query_id) {
+		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
 		$scope.selectedDocIndices = [];
 		$scope.selectedDocIndicesShuffled = [];
 
 		var req = {
 			method: 'POST',
-			url: 'php/retrieveSearchResult.php',
+			url: 'php/retrieveFullSearchResult.php',
 			data: {
 				'query_id': $scope.query_id, //the id of the current query
 			}
@@ -308,23 +308,18 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 		$http(req).then(function (response) {
 			$scope.selectedDocs = response.data.theDocs;
-			$scope.docID = $scope.selectedDocs[0]['docID'];
-			//Next thing is to retrieve URLs of chapters based on selected docIDs
+
+			/*Here i'm assigning what we retrieve from DB into fullChapter variable*/
+			$scope.fullChapter = $scope.selectedDocs;
+
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
 				$scope.selectedDocIndices.push($scope.selectedDocs[ii]["docID"]);
-				//				console.log("Top : " + $scope.selectedDocs[ii]["docID"]);
-
+				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
 			}
 
 			//We Shuffle the selectedDoc indices using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle, and we get back a randomized list to show to the user
 			$scope.selectedDocIndicesShuffled = _.shuffle($scope.selectedDocIndices);
-
-			//*** I use this one. Another method to select the documents to display from an intersection of allDocuments and selectedDocs based on same docID
-			for (var k = 0; k < $scope.selectedDocIndicesShuffled.length; k++) {
-				//				//				console.log("shuffled: " + $scope.selectedDocIndicesShuffled[k]);
-			}
-
 
 		}, function (error) {
 			alert("Sorry! Data Couldn't be retrieved!");
@@ -332,18 +327,18 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 		});
 	};
-	//	$scope.retrieveSearchResult(); //retrieve retrieveSearchResult from the DB table
 
 	//declare a chapter variable to hold a chapter url and title, useful for our modal
 	$scope.chapter = {
 		url: "{{chapter.url}}",
 		title: "{{chapter.title}}",
-		docID: "{{chapter.docID}}"
+		docID: "{{chapter.docID}}",
+		shortSummary: "{{chapter.shortSummary}}"
 	};
 
 	//This function is used in Line 802. it's a function to log the selected chapter or video(if Youtube videos)
-	$scope.selectedResource = function (chapter) {
-		//		$log.info(chapter); // see clicked resource 
+	$scope.selectedResource = function (fullChapter) {
+		$log.info(fullChapter); // see clicked resource 
 		//$scope.insertdata(chapter.title); //call insert function to insert the selected resource in the DB
 	};
 
@@ -403,7 +398,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
 	$scope.evaluateQuery = function () {
 		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
-		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB	
+		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB	
 		console.log("In $scope.evaluateQuery method after DB" + $scope.query_id);
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
@@ -414,7 +409,7 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 		//		console.log("In $scope.evaluateNextQuery method");
 		//console.log("$scope.queryScreen in: " + $scope.queryScreen);
 		$scope.skipQuery();
-		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB
+		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
 	}
@@ -1023,16 +1018,18 @@ MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$
 
 	$scope.ratingCheckCounter = []; //new Array($scope.selectedDocIndices.length);
 	// For AngularUI Modal. I am just replacing video with chapter for now, as I use the chapters from eBooks
-	$scope.open = function (size, chapter, index) {
+	$scope.open = function (size, fullChapter, index) {
 		//		$scope.checkRating = false;
 
 		$scope.showRating = false; //Hide the span that shows the rating given by the user for a document
 		$scope.ratedDocument = false;
-		$scope.selectedResource(chapter); // execute function for selected document to save to database 
-		$scope.selectedChapter = chapter.url; // get the selected chapter's url link
-		$scope.docID = chapter.docID;
-		$scope.title = chapter.title;
-		$scope.rating = chapter.userRating;
+		$scope.selectedResource(fullChapter); // execute function for selected document to save to database 
+		$scope.selectedChapter = fullChapter.url; // get the selected chapter's url link
+		$scope.docID = fullChapter.docID;
+		$scope.title = fullChapter.title;
+		$scope.rating = fullChapter.userRating;
+		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
+		$scope.documentRated = fullChapter.documentRated;
 		$scope.documentRated = chapter.documentRated;
 
 		var modalInstance = $uibModal.open({
