@@ -380,18 +380,21 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		modalInstance.result.then(function (selectedItem) {
 				$scope.selected = selectedItem;
 				//				console.log("$scope.selectedDocIndices.length = " + $scope.selectedDocIndices.length);
-				for (var i = 0; i < $scope.allDocuments.length; i++) {
-					$scope.allDocuments[i].documentRated = "false";
-					if ($scope.allDocuments[i].docID == $scope.selected.docID) {
-						$scope.allDocuments[i].userRating = $scope.selected.rating;
 
-						if (($scope.allDocuments[i].userRating) > 0) {
-							$scope.allDocuments[i].documentRated = "true";
+				for (var i = 0; i < $scope.fullChapter.length; i++) {
+					if ($scope.fullChapter[i].docID == $scope.selected.docID) {
+						$scope.fullChapter[i].userRating = $scope.selected.rating;
+
+						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
+						if (($scope.fullChapter[i].userRating) > 0) {
+							$scope.fullChapter[i].documentRated = "true";
 						}
 						//						console.log($scope.allDocuments[i]);
 						break;
 					}
 				}
+
+
 			},
 			function () {
 				$scope.showRating = true; //show the span with a user's rating for a document
