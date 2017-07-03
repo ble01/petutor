@@ -353,7 +353,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.rating = fullChapter.userRating;
 		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
 		$scope.documentRated = fullChapter.documentRated;
-		//		$scope.documentRated = chapter.documentRated;
 
 		var modalInstance = $uibModal.open({
 			animation: true,
@@ -376,7 +375,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			}
 		});
 
-
 		modalInstance.result.then(function (selectedItem) {
 				$scope.selected = selectedItem;
 				//				console.log("$scope.selectedDocIndices.length = " + $scope.selectedDocIndices.length);
@@ -393,7 +391,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 						break;
 					}
 				}
-
 
 			},
 			function () {
