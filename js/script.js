@@ -237,15 +237,13 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//Function to call next query
 	$scope.evaluateNextQuery = function () {
-		//		console.log("In $scope.evaluateNextQuery method");
-		//console.log("$scope.queryScreen in: " + $scope.queryScreen);
+		$scope.insertPostEvaluation();
+		console.log("Post evaluation feedback " + $scope.feedback);
+		$scope.feedback = ""; //clear the user feedback to receive a new one
 		$scope.skipQuery();
 		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
-		$scope.insertPostEvaluation();
-		console.log("Feedback : " + $scope.feedback);
-		$scope.feedback = ""; //clear the user feedback to receive a new one
 	}
 
 	$scope.endEvaluation = function () {
@@ -303,6 +301,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			},
 			data: $.param({
 				'user_id': $scope.user_id, //the id of the current user 
+				'query_id': $scope.query_id, //the id of the current query
 				'feedback': $scope.feedback //the user's response to the postEvaluation question			 
 			})
 		}
