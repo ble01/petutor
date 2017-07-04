@@ -104,7 +104,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//function to retrieve Queries from the sql database
 	$scope.retrieveQueries = function () {
-		console.log("$scope.user_id in retrieve: " + $scope.user_id);
+		//		console.log("$scope.user_id in retrieve: " + $scope.user_id);
 		$http.get("php/retrieveQueries.php")
 			.then(function (response) {
 				$scope.queries = response.data.theQueries;
@@ -127,7 +127,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//	function to retrieve Full SearchResults from the sql database; takes in the query_id
 	$scope.retrieveFullSearchResult = function (query_id) {
-		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
+		//		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
 		$scope.selectedDocIndices = [];
 		$scope.selectedDocIndicesShuffled = [];
 
@@ -148,7 +148,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
 				$scope.selectedDocIndices.push($scope.selectedDocs[ii]["docID"]);
-//				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
+				//				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
 			}
 
 			//We Shuffle the selectedDoc indices using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle, and we get back a randomized list to show to the user
