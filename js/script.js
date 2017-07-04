@@ -148,7 +148,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
 				$scope.selectedDocIndices.push($scope.selectedDocs[ii]["docID"]);
-				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
+//				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
 			}
 
 			//We Shuffle the selectedDoc indices using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle, and we get back a randomized list to show to the user
