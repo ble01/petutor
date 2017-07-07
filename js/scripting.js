@@ -260,6 +260,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	$scope.evaluateNextQuery = function () {
 		$scope.insertPostEvaluation();
 		console.log("Post evaluation feedback " + $scope.feedback);
+		$scope.coverage = ""; //clear the coverage to receive a new one
 		$scope.feedback = ""; //clear the user feedback to receive a new one
 		$scope.skipQuery();
 		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB
@@ -272,7 +273,8 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.queryScreen = !$scope.queryScreen; //hide the query screen
 		$scope.completionScreen = !false; //show the completion screen
 		$scope.insertPostEvaluation();
-		$scope.feedback = ""; //clear the user feedback to receive a new one	
+		$scope.coverage = ""; //clear the coverage to receive a new one
+		$scope.feedback = ""; //clear the user feedback to receive a new one
 	}
 
 	$scope.allDocumentsRated = function () {
@@ -336,6 +338,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			data: $.param({
 				'user_id': $scope.user_id, //the id of the current user 
 				'query_id': $scope.query_id, //the id of the current query
+				'coverage': $scope.coverage, //coverage of the topics
 				'feedback': $scope.feedback //the user's response to the postEvaluation question			 
 			})
 		}
