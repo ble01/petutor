@@ -92,9 +92,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	$scope.question = {
 		consent: ['yes'],
 		qualification: ['No Degree', 'BSc', 'MSc', 'PhD'],
-		role: ['MSc Student', 'PhD Student', 'Post Doctorate', 'Researcher', 'Lecturer'],
+		role: ['MSc Student', 'PhD Student', 'Researcher', 'Lecturer/Professor'],
 		experience: ['Less than one year', 'One to two years', 'Three To five years', 'Over five years', 'Over ten years'],
-		expertise: ['beginner', 'competent', 'expert']
+		expertise: ['Beginner', 'Competent', 'Expert']
 			//selectedOption: ['Select your role'] //This sets the default value of the select in the ui
 	};
 
@@ -102,7 +102,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	var idx = 0;
 
-	//function to retrieve Queries from the sql database
 	$scope.retrieveQueries = function () {
 		//		console.log("$scope.user_id in retrieve: " + $scope.user_id);
 		$http.get("php/retrieveQueries.php")
@@ -110,20 +109,39 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 				$scope.queries = response.data.theQueries;
 
 				// And, a random search term to start if none was present on page load.
-				idx = Math.floor(Math.random() * $scope.queries.length);
-				$scope.searchTerm = $scope.queries[idx]['query_desc'];
+				//				idx = Math.floor(Math.random() * $scope.queries.length);
+				idx = $scope.queryFactory();
+				$scope.searchTerm = $location.search().q || $scope.queries[idx]['query_desc'];
 				$scope.query_id = $scope.queries[idx]['query_id'];
-				console.log("$scope.searchTerm :" + $scope.searchTerm + ", id = " + $scope.query_id);
+				//				console.log("$scope.searchTerm :" + $scope.searchTerm + ", id = " + $scope.query_id);
 
 				//$scope.conceptTerm = $location.search().q || concepts[idx];
 
 				$scope.randomQuery = $scope.queries[idx]['query_desc']; //Show a random query on start
 				// initial search at startup
-
+				//$scope.loadMore($scope.searchTerm, $scope.page);
+				//				console.log("First load more");
+				$scope.searchConcept();
+				//				console.log(response);
 			});
 	};
 	//	console.log("$scope.retrieveQueries is called");
 	$scope.retrieveQueries(); //retrieve $scope.queries from the DB table
+
+	var queryIndices = [];
+	$scope.queryFactory = function () {
+		// generate random indices with query array length
+		if (queryIndices.length == 0) {
+			for (var i = 0; i < $scope.queries.length; i++) {
+				queryIndices[i] = i;
+			}
+		}
+		var randIndex = Math.floor(Math.random() * queryIndices.length);
+		var nextIndex = queryIndices[randIndex];
+		queryIndices.splice(randIndex, 1);
+
+		return nextIndex;
+	}
 
 	//	function to retrieve Full SearchResults from the sql database; takes in the query_id
 	$scope.retrieveFullSearchResult = function (query_id) {
@@ -144,6 +162,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 			/*Here i'm assigning what we retrieve from DB into fullChapter variable*/
 			$scope.fullChapter = $scope.selectedDocs;
+			for (var i = 0; i < $scope.fullChapter.length; i++) {
+				$scope.fullChapter[i].documentRated = "false";
+			}
 
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
@@ -247,13 +268,26 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	}
 
 	$scope.endEvaluation = function () {
-			$scope.listOfDocuments = !$scope.listOfDocuments; //hide the list of documents
-			$scope.queryScreen = !$scope.queryScreen; //hide the query screen
-			$scope.completionScreen = !false; //show the completion screen
-			$scope.insertPostEvaluation();
-			$scope.feedback = ""; //clear the user feedback to receive a new one	
+		$scope.listOfDocuments = !$scope.listOfDocuments; //hide the list of documents
+		$scope.queryScreen = !$scope.queryScreen; //hide the query screen
+		$scope.completionScreen = !false; //show the completion screen
+		$scope.insertPostEvaluation();
+		$scope.feedback = ""; //clear the user feedback to receive a new one	
+	}
+
+	$scope.allDocumentsRated = function () {
+		if (typeof $scope.fullChapter != 'undefined') {
+			for (var i = 0; i < $scope.fullChapter.length; i++) {
+				if ($scope.fullChapter[i].documentRated == "false") {
+					return false;
+				}
+			}
+			return true;
 		}
-		/*End of hide and show sections for user interface*/
+		return false;
+	}
+
+	/*End of hide and show sections for user interface*/
 
 	$scope.myFilterBy = function (e) {
 		var theResult;
@@ -352,7 +386,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.rating = fullChapter.userRating;
 		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
 		$scope.documentRated = fullChapter.documentRated;
-		//		$scope.documentRated = chapter.documentRated;
 
 		var modalInstance = $uibModal.open({
 			animation: true,

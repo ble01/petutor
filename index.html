@@ -212,14 +212,34 @@
 				<br>
 				<br>
 				<div class="button-group" name='theButtons'>
-					<div>
-						<h4>To what extent do you think the documents shown cover the relevant topics in the query? (type answer below)</h4>
-						<input ng-model='feedback' style="color:#000000;" type='text' class="form-control" size="80">
+					<h4 style="color:#000000 ! important;">To what extent do you think the documents shown cover the relevant topics in the query?</h4>
+					<!--
+						<div class="form-inline" ng-repeat="option in ['Complete coverage','Good coverage','Partial coverage','Limited coverage'] track by $index">
+							<input type="radio" style="display: inline-block;" name="coverage" ng-value="option" ng-model="coverage" required/>
+							<label class="radio inline">{{ option }}</label>
+						</div>
+-->
+					<div class="form-inline">
+						<label class="radio inline">
+							<input type="radio" value="Complete coverage" name="coverage"> Complete coverage
+						</label>
+						<label class="radio inline">
+							<input type="radio" value="Good coverage" name="coverage"> Good coverage
+						</label>
+						<label class="radio inline">
+							<input type="radio" value="Partial coverage" name="coverage"> Partial coverage
+						</label>
+						<label class="radio inline">
+							<input type="radio" value="Limited coverage" name="coverage"> Limited coverage
+						</label>
 					</div>
+					<br><b>Please type any comments below:</b>
+					<input ng-model='feedback' style="color:#000000;" type='text' class="form-control" size="80">
+
 					<br>
-					<button type="submit" class="btn btn-default" ng-click="endEvaluation()" ng-disabled="ratedDocument"><b>End Evaluation</b></button>
+					<button type="submit" class="btn btn-default" ng-click="endEvaluation()" ng-disabled="!allDocumentsRated()"><b>End Evaluation</b></button>
 					&nbsp; &nbsp;
-					<button type="submit" class="btn btn-default" ng-click="evaluateNextQuery()" ng-disabled="ratedDocument"><b>Evaluate Next Query</b></button>
+					<button type="submit" class="btn btn-default" ng-click="evaluateNextQuery()" ng-disabled="!allDocumentsRated()"><b>Evaluate Next Query</b></button>
 				</div>
 			</section>
 			<!-- end of listOfDocuments -->
