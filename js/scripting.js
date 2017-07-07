@@ -387,7 +387,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.docID = fullChapter.docID;
 		$scope.title = fullChapter.title;
 		$scope.rating = fullChapter.userRating;
-		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
+		//		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
 		$scope.documentRated = fullChapter.documentRated;
 
 		var modalInstance = $uibModal.open({
