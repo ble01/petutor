@@ -5,20 +5,22 @@ include("dbConnect.php"); //Establishing connection with our database
 $consentErr = $roleErr = $qualificationErr = $experienceErr = $expertiseErr = "";
 $consent = $role = $qualification = $experience = $expertise = "";
 
+$ip = ""; 
 $user_id = $_POST['user_id'];
+$ip = $_SERVER["REMOTE_ADDR"];
 $consent = $_POST['consent'];
 $role = $_POST['role'];
 $qualification = $_POST['qualification'];
 $experience = $_POST['experience'];
 $expertise = $_POST['expertise']; 
-$ip = ""; 
+
 
 echo $user_id. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
-$ip = $_SERVER["REMOTE_ADDR"];
+
  
  if(isset($_POST['consent'])){ 
 	 
-	 $sql = "INSERT INTO survey (ip, user_id, consent, role, qualification, experience, expertise) VALUES('".$ip."','".$user_id."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
+	 $sql = "INSERT INTO survey (user_id, ip, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
  
  } 
 
