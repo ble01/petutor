@@ -11,17 +11,15 @@ $role = $_POST['role'];
 $qualification = $_POST['qualification'];
 $experience = $_POST['experience'];
 $expertise = $_POST['expertise']; 
+$ip = ""; 
 
 echo $user_id. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
-
-//$con = mysqli_connect("localhost","root","","tutor"); 
-// //if(empty($_POST['consent'])) //{ //$consentErr = "Consent not given"; //$error=true; //} //else //{ //$consent = $_POST['consent']; //}
-
-//if(isset($_POST['submit'])){
+$ip = $_SERVER["REMOTE_ADDR"];
+ 
  if(isset($_POST['consent'])){ 
 	 
-	 $sql = "INSERT INTO survey (user_id, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
-//	 mysqli_query($con, $sql); 
+	 $sql = "INSERT INTO survey (ip, user_id, consent, role, qualification, experience, expertise) VALUES('".$ip."','".$user_id."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
+ 
  } 
 
 mysqli_query($con, $sql);
