@@ -192,7 +192,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//This function is used in Line 802. it's a function to log the selected chapter or video(if Youtube videos)
 	$scope.selectedResource = function (fullChapter) {
-		$log.info(fullChapter); // see clicked resource 
+		//		$log.info(fullChapter); // see clicked resource 
 		//$scope.insertdata(chapter.title); //call insert function to insert the selected resource in the DB
 	};
 
@@ -244,7 +244,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.randomQuery = $scope.queries[rand]['query_desc']; //Show a random query on start
 		$scope.searchTerm = $scope.randomQuery;
 		$scope.query_id = $scope.queries[rand]['query_id'];
-		console.log("Query in skipQuery is: " + $scope.query_id + ": " + $scope.searchTerm);
+		//		console.log("Query in skipQuery is: " + $scope.query_id + ": " + $scope.searchTerm);
 	};
 
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
@@ -259,7 +259,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	//Function to call next query
 	$scope.evaluateNextQuery = function () {
 		$scope.insertPostEvaluation();
-		console.log("Post evaluation feedback " + $scope.feedback);
+		//		console.log("Post evaluation feedback " + $scope.feedback);
 		$scope.coverage = ""; //clear the coverage to receive a new one
 		$scope.feedback = ""; //clear the user feedback to receive a new one
 		$scope.skipQuery();
@@ -319,7 +319,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		}
 
 		$http(req).then(function (response) {
-			console.log("Data Inserted Successfully");
+			//			console.log("Data Inserted Successfully");
 		}, function (error) {
 			alert("Sorry! Data Couldn't be inserted!");
 			console.error(error);
@@ -344,9 +344,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		}
 
 		$http(req).then(function (resonse) {
-			console.log("feedback received succesfully");
+			//			console.log("feedback received succesfully");
 		}, function (error) {
-			alert("Sorry! Data could not be inserted into DB!");
+			//			alert("Sorry! Data could not be inserted into DB!");
 			console.error(error);
 		});
 	}; //end of insertPostEvaluation method
@@ -420,7 +420,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 					if ($scope.fullChapter[i].docID == $scope.selected.docID) {
 						$scope.fullChapter[i].userRating = $scope.selected.rating;
 
-						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
+						//						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
 						if (($scope.fullChapter[i].userRating) > 0) {
 							$scope.fullChapter[i].documentRated = "true";
 						}
@@ -454,7 +454,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 
 	$scope.getSelectedRating = function (rating) {
 			$scope.selected.rating = rating;
-			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
+			//			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
 
 			var req = {
 				method: 'POST',
@@ -473,9 +473,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 				})
 			}
 
-			$http(req).then(function (response) {
-				//				console.log("Star Rating Inserted Successfully");
-			}, function (error) {
+			$http(req).then(function (response) {}, function (error) {
 				alert("Sorry! Rating Couldn't be inserted!");
 				console.error(error);
 
@@ -485,7 +483,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 
 	// actions on click event in modal
 	$scope.ok = function () { // executes on modal close using close button
-		console.log("Modal close button pressed!");
+		//		console.log("Modal close button pressed!");
 		$uibModalInstance.close($scope.selected);
 	};
 
