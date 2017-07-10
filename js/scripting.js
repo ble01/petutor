@@ -159,9 +159,10 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 		$http(req).then(function (response) {
 			$scope.selectedDocs = response.data.theDocs;
+			$scope.selectedDocsShuffled = _.shuffle($scope.selectedDocs); //Shuffle the documents for random display in html
 
-			/*Here i'm assigning what we retrieve from DB into fullChapter variable*/
-			$scope.fullChapter = $scope.selectedDocs;
+			/*Here i'm assigning the shuffled verion of what we retrieved from DB into fullChapter variable*/
+			$scope.fullChapter = $scope.selectedDocsShuffled
 			for (var i = 0; i < $scope.fullChapter.length; i++) {
 				$scope.fullChapter[i].documentRated = "false";
 			}
@@ -169,7 +170,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
 				$scope.selectedDocIndices.push($scope.selectedDocs[ii]["docID"]);
-				//				console.log($scope.selectedDocs[ii].docID + "," + $scope.selectedDocs[ii].title + "," + $scope.selectedDocs[ii].url + "," + $scope.selectedDocs[ii].shortSummary);
 			}
 
 			//We Shuffle the selectedDoc indices using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle, and we get back a randomized list to show to the user
@@ -428,8 +428,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 						break;
 					}
 				}
-
-
 			},
 			function () {
 				$scope.showRating = true; //show the span with a user's rating for a document
@@ -438,23 +436,6 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	}; //end of scope.open
 
-
-	$scope.checkRating = function () {
-			console.log("in the check rating function");
-			console.log("$scope.selectedDocIndices[j]" + $scope.selectedDocIndices[0]);
-			//			console.log("checkRating_userRating_1" + $scope.theSelectedDocuments[0]['userRating']);
-			//			var output = false;
-			//					if ($scope.conceptlabelsArray.some(function (v) {
-			//								if (currentQuery.indexOf(v) >= 0) {
-			//									console.log("Found: " + $scope.conceptlabelsArray[$scope.conceptlabelsArray.indexOf(v)]);
-
-			//			console.log("docID is: " + $scope.selectedDocIndicesShuffled[$scope.selectedDocIndicesShuffled.indexOf(e.docID)]);
-			//			for (var i = 0; i < $scope.allDocuments.length; i++) { //for the length of the selected Documents
-			//				if ($scope.allDocuments[i].docID)
-			//					console.log("theSelectedDocument " + i + " is: " + $scope.theSelectedDocuments);
-			//			}
-			//			return output;
-		} //end of checkRating function
 
 			}]); //end of MachineLearningRecommender controller
 
