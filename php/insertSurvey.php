@@ -14,10 +14,8 @@ $qualification = $_POST['qualification'];
 $experience = $_POST['experience'];
 $expertise = $_POST['expertise']; 
 
-
 echo $user_id. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
 
- 
  if(isset($_POST['consent'])){ 
 	 
 	 $sql = "INSERT INTO survey (user_id, ip, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 

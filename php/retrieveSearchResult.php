@@ -1,9 +1,6 @@
 <?php
 
 include("dbConnect.php"); //Establishing connection with our database
-
-//header("Access-Control-Allow-Origin: *");
-//header("Content-Type: application/json; charset=UTF-8");
  
 $request = json_decode( file_get_contents('php://input') );
  
