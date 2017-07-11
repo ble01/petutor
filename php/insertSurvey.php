@@ -15,7 +15,7 @@ $qualification = $_POST['qualification'];
 $experience = $_POST['experience'];
 $expertise = $_POST['expertise']; 
 
-//echo $user_id. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
+echo $user_id. " " .$ip. " " .$date. " " .$consent. " " .$role. " " .$qualification. " " .$experience. " " .$expertise;
 
  if(isset($_POST['consent'])){ 
 	 
