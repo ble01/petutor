@@ -8,7 +8,7 @@ $consent = $role = $qualification = $experience = $expertise = "";
 $ip = ""; 
 $user_id = $_POST['user_id'];
 $ip = $_SERVER["REMOTE_ADDR"];
-$date = gmdate("l jS \of F Y h:i:s A");
+$date = gmdate("l jS F Y h:i:s A");
 $consent = $_POST['consent'];
 $role = $_POST['role'];
 $qualification = $_POST['qualification'];
