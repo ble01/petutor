@@ -60,7 +60,7 @@ MachineLearningRecommender.directive('starRating', function () {
 /**
  * Create a controller to interact with the UI.
  */
-MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function (data, $scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
+MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function ($scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
 
 	$scope.queries = [];
 	$scope.resultsPerPage = [];
