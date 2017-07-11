@@ -52,15 +52,15 @@ MachineLearningRecommender.directive('starRating', function () {
 		}
 	}
 });
-/**
- * Create a service to power calls to Elasticsearch. We only need to use the _search endpoint.
- */
+
+
+
 
 
 /**
  * Create a controller to interact with the UI.
  */
-MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function ($scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
+MachineLearningRecommender.controller('videoCtrl', ['videoService', '$scope', '$location', '$sce', '$http', '$uibModal', '$log', '$rootScope', function (data, $scope, $location, $sce, $http, $uibModal, $log, $rootScope) {
 
 	$scope.queries = [];
 	$scope.resultsPerPage = [];
@@ -77,7 +77,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	var expandedQuery = " ";
 
-	// Initialize the scope defaults. 
+	// Initialize the scope defaults.
 	$scope.concepts = []; //An array of concepts
 	$scope.top3concepts = []; //An array of concepts
 	$scope.allConcepts = []; //An array to hold ALL the concepts, don't know if this is a repetition of $scope.concepts
@@ -92,9 +92,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	$scope.question = {
 		consent: ['yes'],
 		qualification: ['No Degree', 'BSc', 'MSc', 'PhD'],
-		role: ['MSc Student', 'PhD Student', 'Researcher', 'Lecturer/Professor'],
+		role: ['MSc Student', 'PhD Student', 'Post Doctorate', 'Researcher', 'Lecturer'],
 		experience: ['Less than one year', 'One to two years', 'Three To five years', 'Over five years', 'Over ten years'],
-		expertise: ['Beginner', 'Competent', 'Expert']
+		expertise: ['beginner', 'competent', 'expert']
 			//selectedOption: ['Select your role'] //This sets the default value of the select in the ui
 	};
 
@@ -109,7 +109,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 				$scope.queries = response.data.theQueries;
 
 				// And, a random search term to start if none was present on page load.
-				//				idx = Math.floor(Math.random() * $scope.queries.length);
+
 				idx = $scope.queryFactory();
 				$scope.searchTerm = $location.search().q || $scope.queries[idx]['query_desc'];
 				$scope.query_id = $scope.queries[idx]['query_id'];
@@ -145,7 +145,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//	function to retrieve Full SearchResults from the sql database; takes in the query_id
 	$scope.retrieveFullSearchResult = function (query_id) {
-		//		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
+		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
 		$scope.selectedDocIndices = [];
 		$scope.selectedDocIndicesShuffled = [];
 
@@ -159,9 +159,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 		$http(req).then(function (response) {
 			$scope.selectedDocs = response.data.theDocs;
-			$scope.selectedDocsShuffled = _.shuffle($scope.selectedDocs); //Shuffle the documents for random display in html
+			$scope.selectedDocsShuffled = _.shuffle($scope.selectedDocs);
 
-			/*Here i'm assigning the shuffled verion of what we retrieved from DB into fullChapter variable*/
+			/*Here i'm assigning what we retrieve from DB into fullChapter variable*/
 			$scope.fullChapter = $scope.selectedDocsShuffled
 			for (var i = 0; i < $scope.fullChapter.length; i++) {
 				$scope.fullChapter[i].documentRated = "false";
@@ -169,7 +169,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 			var ii = 0;
 			for (; ii < $scope.selectedDocs.length; ii++) {
-				$scope.selectedDocIndices.push($scope.selectedDocs[ii]["docID"]);
+				$scope.selectedDocIndices.push($scope.selectedDocsShuffled[ii]["docID"]);
 			}
 
 			//We Shuffle the selectedDoc indices using _.shuffle from Underscore.js which is a version of the Fisher-Yates shuffle, and we get back a randomized list to show to the user
@@ -192,13 +192,13 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//This function is used in Line 802. it's a function to log the selected chapter or video(if Youtube videos)
 	$scope.selectedResource = function (fullChapter) {
-		//		$log.info(fullChapter); // see clicked resource 
+		$log.info(fullChapter); // see clicked resource 
 		//$scope.insertdata(chapter.title); //call insert function to insert the selected resource in the DB
 	};
 
 	/*Beginning of hide and show sections for user interface*/
-	$scope.briefingNotes = true;
-	$scope.questionnaire = true;
+	$scope.briefingNotes = true; //true;
+	$scope.questionnaire = true; //true;
 	$scope.queryScreen = true; //hide the query screen
 	$scope.buttonChoice = true;
 	$scope.listOfDocuments = true;
@@ -206,8 +206,8 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//Function to continue to Questionnaire
 	$scope.continueToQuestionnaire = function () {
-		$scope.briefingNotes = !$scope.briefingNotes; //hide the briefing notes when the "Continue" button is clicked
-		$scope.questionnaire = !$scope.questionnaire; //show the questionnaire when the "Continue" button is clicked
+		$scope.briefingNotes = !$scope.briefingNotes;
+		$scope.questionnaire = !$scope.questionnaire;
 	}
 
 	// Function to continue to the evaluation page and write questionnaire results to DB
@@ -240,7 +240,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	}
 
 	$scope.skipQuery = function () {
-		rand = Math.floor(Math.random() * $scope.queries.length); //I changed this from idx... Hmm...
+		rand = $scope.queryFactory();
 		$scope.randomQuery = $scope.queries[rand]['query_desc']; //Show a random query on start
 		$scope.searchTerm = $scope.randomQuery;
 		$scope.query_id = $scope.queries[rand]['query_id'];
@@ -249,9 +249,9 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
 	$scope.evaluateQuery = function () {
-		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
-		$scope.retrieveFullSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB	
-		console.log("Query: " + $scope.query_id + " : " + $scope.searchTerm);
+		//		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
+		$scope.retrieveFullSearchResult($scope.query_id);
+		//		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB		
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
 	};
@@ -260,7 +260,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 	$scope.evaluateNextQuery = function () {
 		console.log("Query in evaluateNextQuery is: " + $scope.query_id + ": " + $scope.searchTerm);
 		$scope.insertPostEvaluation();
-		//		console.log("Post evaluation feedback " + $scope.feedback);
+		console.log("Post evaluation feedback " + $scope.feedback);
 		$scope.coverage = ""; //clear the coverage to receive a new one
 		$scope.feedback = ""; //clear the user feedback to receive a new one
 		$scope.skipQuery();
@@ -305,7 +305,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		}
 		///////////////////////////////////////////////
 
-	/*New method of calling script to insert into DB*/
+	/*New method of calling script to insert into DB, yet to implement*/
 	$scope.insertdata = function (resource) {
 		var req = {
 			method: 'POST',
@@ -320,7 +320,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		}
 
 		$http(req).then(function (response) {
-			//			console.log("Data Inserted Successfully");
+			console.log("Data Inserted Successfully");
 		}, function (error) {
 			alert("Sorry! Data Couldn't be inserted!");
 			console.error(error);
@@ -344,10 +344,10 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			})
 		}
 
-		$http(req).then(function (resonse) {
-			//			console.log("feedback received succesfully");
+		$http(req).then(function (response) {
+			console.log("feedback received succesfully");
 		}, function (error) {
-			//			alert("Sorry! Data could not be inserted into DB!");
+			alert("Sorry! Data could not be inserted into DB!");
 			console.error(error);
 		});
 	}; //end of insertPostEvaluation method
@@ -376,10 +376,10 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		});
 	};
 
-	$scope.ratingCheckCounter = []; //new Array($scope.selectedDocIndices.length);
-	// For AngularUI Modal. I am just replacing video with chapter for now, as I use the chapters from eBooks
+
+	// For AngularUI Modal, I am just replacing video with chapter for now, as I use the chapters from eBooks
 	$scope.open = function (size, fullChapter, index) {
-		//		$scope.checkRating = false;
+
 
 		$scope.showRating = false; //Hide the span that shows the rating given by the user for a document
 		$scope.ratedDocument = false;
@@ -388,7 +388,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.docID = fullChapter.docID;
 		$scope.title = fullChapter.title;
 		$scope.rating = fullChapter.userRating;
-		//		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
+		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
 		$scope.documentRated = fullChapter.documentRated;
 
 		var modalInstance = $uibModal.open({
@@ -421,7 +421,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 					if ($scope.fullChapter[i].docID == $scope.selected.docID) {
 						$scope.fullChapter[i].userRating = $scope.selected.rating;
 
-						//						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
+						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
 						if (($scope.fullChapter[i].userRating) > 0) {
 							$scope.fullChapter[i].documentRated = "true";
 						}
@@ -455,7 +455,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 
 	$scope.getSelectedRating = function (rating) {
 			$scope.selected.rating = rating;
-			//			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
+			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
 
 			var req = {
 				method: 'POST',
@@ -492,7 +492,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 		$scope.ok();
 		$uibModalInstance.dismiss('cancel');
 		//		console.log("showRating Before = " + $scope.showRating);
-		$scope.showRating = !false; //show the span with a user's rating for a document 
+		$scope.showRating = !false;
 	};
 }]);
 
