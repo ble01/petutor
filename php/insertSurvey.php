@@ -19,7 +19,7 @@ $expertise = $_POST['expertise'];
 
  if(isset($_POST['consent'])){ 
 	 
-	 $sql = "INSERT INTO survey (user_id, ip, date, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$date."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
+	 $sql = "INSERT INTO survey (user_id, ip, the_date, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$date."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
  
  } 
 
