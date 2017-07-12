@@ -129,45 +129,43 @@
 									<span ng-show="survey.role.$pristine">Role is required</span>
 									<br>
 									<select name="role" id="role" ng-options="item for item in question.role" ng-model="user.role" required></select>
-								</li>
-								<input ng-model='feedback' style="color:#000000;" type='text' class="form-control" size="80">
 
-								<!-- //Q1b.-->
-								<li>
-									<label>What University / Institution are you affiliated with?</label>
-									<br>
-									<input ng-model='university' style="color:#000000;" type='text' class="form-control">
-								</li>
+									<!-- //Q1b.-->
+									<li>
+										<label>What University / Institution are you affiliated with?</label>
+										<br>
+										<input ng-model='university' style="color:#000000;" type='text' class="form-control">
+									</li>
 
-								<!-- //Q2.-->
-								<li>
-									<label>What is your highest qualification?</label>
-									<span class="error">* <?php echo $qualificationErr;?></span>
-									<span ng-show="survey.qualification.$pristine">Qualification is required</span>
-									<br>
-									<select name="qualification" id="qualification" ng-options="item for item in question.qualification" ng-model="user.qualification" required></select>
-								</li>
+									<!-- //Q2.-->
+									<li>
+										<label>What is your highest qualification?</label>
+										<span class="error">* <?php echo $qualificationErr;?></span>
+										<span ng-show="survey.qualification.$pristine">Qualification is required</span>
+										<br>
+										<select name="qualification" id="qualification" ng-options="item for item in question.qualification" ng-model="user.qualification" required></select>
+									</li>
 
-								<li>
-									<label>How much experience do you have in Machine Learning / Data Mining?</label>
-									<span class="error">* <?php echo $experienceErr;?></span>
-									<span ng-show="survey.experience.$pristine">Experience is required</span>
-									<div ng-repeat="option in question.experience track by $index">
-										<input type="radio" name="experience" ng-value="option" ng-model="user.experience" required/>
-										<label>{{ option }}</label>
-									</div>
-								</li>
+									<li>
+										<label>How much experience do you have in Machine Learning / Data Mining?</label>
+										<span class="error">* <?php echo $experienceErr;?></span>
+										<span ng-show="survey.experience.$pristine">Experience is required</span>
+										<div ng-repeat="option in question.experience track by $index">
+											<input type="radio" name="experience" ng-value="option" ng-model="user.experience" required/>
+											<label>{{ option }}</label>
+										</div>
+									</li>
 
-								<!-- //Q4.-->
-								<li>
-									<label>How would you classify your expertise in Machine Learning / Data Mining?</label>
-									<span class="error">* <?php echo $expertiseErr;?></span>
-									<span ng-show="survey.expertise.$pristine">Expertise is required</span>
-									<div ng-repeat="option in question.expertise track by $index">
-										<input type="radio" name="expertise" ng-value="option" ng-model="user.expertise" required/>
-										<label>{{ option }}</label>
-									</div>
-								</li>
+									<!-- //Q4.-->
+									<li>
+										<label>How would you classify your expertise in Machine Learning / Data Mining?</label>
+										<span class="error">* <?php echo $expertiseErr;?></span>
+										<span ng-show="survey.expertise.$pristine">Expertise is required</span>
+										<div ng-repeat="option in question.expertise track by $index">
+											<input type="radio" name="expertise" ng-value="option" ng-model="user.expertise" required/>
+											<label>{{ option }}</label>
+										</div>
+									</li>
 							</ol>
 							<button type="submit" class="btn btn-default" ng-click="continueToEval(consent, user.role, qualification, experience, expertise)" style="float: right;" ng-disabled="!survey.$valid"><b>Continue to Evaluation</b></button>
 						</fieldset>
