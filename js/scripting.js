@@ -230,7 +230,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			alert("Sorry! survey data Couldn't be inserted!");
 			console.error(error);
 		});
-		$scope.university = "";
+		//		$scope.university = "";
 	}
 
 	$scope.skipQuery = function () {
