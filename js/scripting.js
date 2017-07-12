@@ -137,7 +137,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//	function to retrieve Full SearchResults from the sql database; takes in the query_id
 	$scope.retrieveFullSearchResult = function (query_id) {
-		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
+		//		console.log("$scope.query_id in retrieveFullSearchResult: " + $scope.query_id);
 		$scope.selectedDocIndices = [];
 		$scope.selectedDocIndicesShuffled = [];
 
@@ -217,6 +217,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 				'user_id': $scope.user_id, //the id of the current user 
 				'consent': $scope.user.consent,
 				'role': $scope.user.role,
+				'university': $scope.university,
 				'qualification': $scope.user.qualification,
 				'experience': $scope.user.experience,
 				'expertise': $scope.user.expertise
@@ -229,6 +230,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 			alert("Sorry! survey data Couldn't be inserted!");
 			console.error(error);
 		});
+		$scope.university = "";
 	}
 
 	$scope.skipQuery = function () {
@@ -241,7 +243,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
 	$scope.evaluateQuery = function () {
-		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
+		//		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
 		$scope.retrieveFullSearchResult($scope.query_id);
 		//		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB		
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
@@ -380,7 +382,7 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.docID = fullChapter.docID;
 		$scope.title = fullChapter.title;
 		$scope.rating = fullChapter.userRating;
-		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
+		//		console.log("fullChapter.title = " + fullChapter.title + ",fullChapter.userRating = " + fullChapter.userRating);
 		$scope.documentRated = fullChapter.documentRated;
 
 		var modalInstance = $uibModal.open({
@@ -413,11 +415,11 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 					if ($scope.fullChapter[i].docID == $scope.selected.docID) {
 						$scope.fullChapter[i].userRating = $scope.selected.rating;
 
-						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
+						//						console.log("$scope.selected.rating " + $scope.fullChapter[i].userRating);
 						if (($scope.fullChapter[i].userRating) > 0) {
 							$scope.fullChapter[i].documentRated = "true";
 						}
-						//						console.log($scope.allDocuments[i]);
+
 						break;
 					}
 				}
@@ -447,7 +449,7 @@ MachineLearningRecommender.controller('ModalCtrl', ['$scope', '$http', '$uibModa
 
 	$scope.getSelectedRating = function (rating) {
 			$scope.selected.rating = rating;
-			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
+			//			console.log("Learner rated: " + rating + " userRating = " + $scope.selected.rating);
 
 			var req = {
 				method: 'POST',

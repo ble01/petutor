@@ -11,6 +11,7 @@ $ip = $_SERVER["REMOTE_ADDR"];
 $date = gmdate("l jS F Y h:i:s A");
 $consent = $_POST['consent'];
 $role = $_POST['role'];
+$university = $_POST['university'];
 $qualification = $_POST['qualification'];
 $experience = $_POST['experience'];
 $expertise = $_POST['expertise']; 
@@ -19,7 +20,7 @@ echo $user_id. " " .$ip. " " .$date. " " .$consent. " " .$role. " " .$qualificat
 
  if(isset($_POST['consent'])){ 
 	 
-	 $sql = "INSERT INTO survey (user_id, ip, the_date, consent, role, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$date."','".$consent."','".$role."','".$qualification."','".$experience."','".$expertise."')"; 
+	 $sql = "INSERT INTO survey (user_id, ip, the_date, consent, role, university, qualification, experience, expertise) VALUES('".$user_id."','".$ip."','".$date."','".$consent."','".$role."','".$university."','".$qualification."','".$experience."','".$expertise."')"; 
  
  } 
 
