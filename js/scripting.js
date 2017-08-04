@@ -236,11 +236,13 @@ MachineLearningRecommender.controller('videoCtrl', ['$scope', '$location', '$sce
 		$scope.randomQuery = $scope.queries[rand]['query_desc']; //Show a random query on start
 		$scope.searchTerm = $scope.randomQuery;
 		$scope.query_id = $scope.queries[rand]['query_id'];
+		console.log("Query in skipQuery is: " + $scope.query_id + ": " + $scope.searchTerm);
 	};
 
 	//Function to evaluate a query. The function is called when a user clicks the Evaluate button 
 	$scope.evaluateQuery = function () {
 		$scope.retrieveFullSearchResult($scope.query_id);
+		console.log("In $scope.evaluateQuery method, query_id = " + $scope.query_id);
 		//		$scope.retrieveSearchResult($scope.query_id); //Call the method to retrieve the search results from the DB		
 		$scope.listOfDocuments = !$scope.listOfDocuments; //show the list of documents for evaluation
 		$scope.buttonChoice = !$scope.buttonChoice; // Hide the button choices, so the learner focuses on the listOfDocuments shown
